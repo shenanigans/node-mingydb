@@ -136,3 +136,4 @@ describe ("basic connectivity", function(){
 require ('./Database');
 require ('./Compression');
 require ('./Collection');
+require ('./Aggregation');

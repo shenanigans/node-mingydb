@@ -162,3 +162,4 @@ module.exports.rawCollection    = rawCollection;
 
 module.exports.Database         = Database;
 module.exports.Collection       = Collection;
+module.exports.Server           = mongodb.Server;

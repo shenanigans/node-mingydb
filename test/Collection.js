@@ -5,8 +5,11 @@ var mingydb = require ('../main');
 var mongodb = require ('mongodb');
 
 describe ("Collection", function(){
+    this.timeout (150); // sometimes Mongo's first op in a while is very slow
+
     var nextID = 1;
     function getNextID(){ return 'tempID_'+nextID++; }
+
     var testCollection;
     var rawTestCollection;
     before (function (done) {
@@ -64,8 +67,6 @@ describe ("Collection", function(){
             }, done);
         });
     });
-
-    this.timeout (150); // sometimes Mongo's first op in a while is very slow
 
     it ("creates a Collection representation", function (done) {
         mingydb.collection (
