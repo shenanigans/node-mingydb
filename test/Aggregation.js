@@ -54,13 +54,29 @@ function getTypeStr (obj) {
     if (tstr.slice(0,4) == 'html') return 'element';
     return tstr;
 }
-var collection, targetCollection;
+var collection, rawCollection, targetCollection;
 function testAggregation (documents, pipeline, callback, arraysAsSets) {
-    collection.remove ({}, { w:1, j:true }, function (err) {
+    async.parallel ([
+        function (callback) {
+            collection.remove ({}, { w:1, j:true }, callback);
+        },
+        function (callback) {
+            targetCollection.remove ({}, { w:1, j:true }, callback);
+        }
+    ], function (err) {
         if (err) return callback (err);
-        async.each (documents, function (doc, callback) {
-            collection.insert (doc, { w:1 }, callback);
-        }, function (err) {
+        async.parallel ([
+            function (callback) {
+                async.each (documents, function (doc, callback) {
+                    collection.insert (doc, { w:1 }, callback);
+                }, callback);
+            },
+            function (callback) {
+                async.each (documents, function (doc, callback) {
+                    targetCollection.insert (doc, { w:1 }, callback);
+                }, callback);
+            }
+        ], function (err) {
             if (err) return callback (err);
 
             // process the same operation raw and compressed, then compare results
@@ -91,12 +107,16 @@ function testAggregation (documents, pipeline, callback, arraysAsSets) {
                 for (var i in target) delete target[i]._id;
                 for (var i in sample) delete sample[i]._id;
 
-                if (sample.length != target.length)
-                    return callback (new Error ('mingydb produced incorrect number of records'));
+                if (sample.length != target.length) {
+                    console.log (JSON.stringify (target));
+                    console.log (JSON.stringify (sample));
+                    return callback (new Error (
+                        'mingydb produced incorrect number of records'
+                    ));
+                }
 
                 for (var i=0,j=sample.length; i<j; i++) {
                     var candidate = sample[i];
-                    delete candidate._id;
                     var found = false;
                     for (var k in target)
                         if (matchLeaves (candidate, target[k], true)) {
@@ -118,6 +138,8 @@ function testAggregation (documents, pipeline, callback, arraysAsSets) {
 
 describe ("Aggregation", function(){
 
+    this.slow (500);
+
     before (function (done) {
         mingydb.collection (
             'test-mingydb',
@@ -126,14 +148,29 @@ describe ("Aggregation", function(){
             function (err, col) {
                 if (err) return done (err);
                 collection = col;
-                mingydb.collection (
+                mingydb.rawCollection (
                     'test-mingydb',
                     'test-mingydb',
                     new mingydb.Server ('127.0.0.1', 27017),
                     function (err, col) {
                         if (err) return done (err);
-                        targetCollection = col;
-                        done();
+                        rawCollection = col;
+                        mingydb.rawCollection (
+                            'test-mingydb',
+                            'test-mingydb-raw',
+                            new mingydb.Server ('127.0.0.1', 27017),
+                            function (err, col) {
+                                if (err) return done (err);
+                                targetCollection = col;
+                                collection.remove ({}, { w:1, j:1 }, function (err) {
+                                    if (err) return callback (err);
+                                    targetCollection.remove ({}, { w:1, j:1 }, function (err) {
+                                        if (err) return callback (err);
+                                        done();
+                                    });
+                                });
+                            }
+                        );
                     }
                 );
             }
@@ -207,7 +244,7 @@ describe ("Aggregation", function(){
                     { able:{ baker:6 }, baker:42 },
                 ], [
                     { $project: {
-                        'novel.field':  '$able.baker'
+                        'novel.field.addition.here':  '$able.baker'
                     }}
                 ], done);
             });
@@ -221,24 +258,13 @@ describe ("Aggregation", function(){
                 ], [
                     { $project: {
                         novel:      {
-                            field:      '$able.baker'
+                            field:      {
+                                addition:   {
+                                    here:       '$able.baker'
+                                }
+                            }
                         }
                     }}
-                ], done);
-            });
-
-        });
-
-        describe ("$skip", function(){
-
-            it ("skips documents", function (done) {
-                testAggregation ([
-                    { able:{ baker:9 }, baker:42 },
-                    { able:{ baker:8 }, baker:42 },
-                    { able:{ baker:7 }, baker:42, charlie:9 },
-                    { able:{ baker:6 }, baker:42 },
-                ], [
-                    { $skip:2 }
                 ], done);
             });
 
@@ -256,6 +282,22 @@ describe ("Aggregation", function(){
                     { $sort:{
                         'able.baker':   1
                     }}
+                ], done);
+            });
+
+        });
+
+        describe ("$skip", function(){
+
+            it ("skips documents", function (done) {
+                testAggregation ([
+                    { able:{ baker:9 }, baker:42 },
+                    { able:{ baker:8 }, baker:42 },
+                    { able:{ baker:7 }, baker:42, charlie:9 },
+                    { able:{ baker:6 }, baker:42 },
+                ], [
+                    { $sort:{ 'able.baker':1 }},
+                    { $skip:2 }
                 ], done);
             });
 
@@ -284,6 +326,7 @@ describe ("Aggregation", function(){
                     { able:{ baker:7 }, baker:42, charlie:9 },
                     { able:{ baker:6 }, baker:42 },
                 ], [
+                    { $sort:{ 'able.baker':1 }},
                     { $limit:2 }
                 ], done);
             });
@@ -332,10 +375,8 @@ describe ("Aggregation", function(){
                             { able:{ baker:'niner' },   foo:'one' },
                             { able:{ baker:9 },         foo:1 },
                             { able:{ baker:{ able:1 }}, foo:3 },
-                            { able:{ baker:7 },         foo:{ bar:9 } },
+                            { able:{ baker:{ able:1 }}, foo:'two' },
                             { able:{ baker:{ able:1 }}, foo:700 },
-                            { able:{ baker:7 },         foo:{ bar:10 } },
-                            { able:{ baker:7 },         foo:{ bar:9 } },
                             { able:{ baker:9 },         foo:56 }
                         ], [
                             { $group:{
@@ -501,14 +542,11 @@ describe ("Aggregation", function(){
                             { able:{ baker:'niner' },   foo:1 },
                             { able:{ baker:9 },         foo:2 },
                             { able:{ baker:'niner' },   foo:1 },
-                            { able:{ baker:{ able:2 }}, foo:1 },
                             { able:{ baker:8 },         foo:8 },
                             { able:{ baker:7 },         foo:5 },
                             { able:{ baker:'niner' },   foo:1 },
                             { able:{ baker:9 },         foo:1 },
-                            { able:{ baker:{ able:1 }}, foo:3 },
                             { able:{ baker:9 },         foo:9 },
-                            { able:{ baker:{ able:1 }}, foo:700 },
                             { able:{ baker:7 },         foo:3 },
                             { able:{ baker:9 },         foo:56 }
                         ], [
@@ -618,6 +656,119 @@ describe ("Aggregation", function(){
         });
 
         describe ("$geoNear", function(){
+
+            it ("selects documents geolocated near a point", function (done) {
+                var documents = [
+                    { xray:{ zebra:[ 1, 20 ] }, zebra:{ xray:1 } },
+                    { xray:{ zebra:[ -7, 11 ] }, zebra:{ xray:1 } },
+                    { xray:{ zebra:[ 15, -4 ] }, zebra:{ xray:0 } },
+                    { xray:{ zebra:[ 14, -20 ] }, zebra:{ xray:0 } },
+                    { xray:{ zebra:[ 0, -10 ] }, zebra:{ xray:1 } },
+                    { xray:{ zebra:[ -1, 7 ] }, zebra:{ xray:0 } },
+                    { xray:{ zebra:[ 4, 9 ] }, zebra:{ xray:1 } },
+                    { xray:{ zebra:[ -16, 13 ] }, zebra:{ xray:0 } },
+                    { xray:{ zebra:[ -12, -13 ] }, zebra:{ xray:1 } },
+                    { xray:{ zebra:[ 2, -2 ] }, zebra:{ xray:1 } }
+                ];
+                var pipeline = [
+                    { $geoNear:{
+                        near:           [ 0, 0 ],
+                        distanceField:  "projected.distance",
+                        includeLocs:    "projected.location",
+                        num:            2,
+                        query:          { 'zebra.xray':{ $gt:0 } }
+                    } }
+                ];
+
+                async.parallel ([
+                    function (callback) {
+                        collection.remove ({}, { w:1, fsync:true }, function (err) {
+                            if (err) return callback (err);
+                            collection.ensureIndex (
+                                { 'xray.zebra':'2d' },
+                                { w:1, fsync:true },
+                                function (err) {
+                                    if (err) return callback (err);
+                                    async.each (documents, function (doc, callback) {
+                                        collection.insert (doc, { w:1, fsync:1 }, callback);
+                                    }, callback);
+                                }
+                            );
+                        });
+                    },
+                    function (callback) {
+                        targetCollection.remove ({}, { w:1, fsync:true }, function (err) {
+                            if (err) return callback (err);
+                            targetCollection.ensureIndex (
+                                { 'xray.zebra':'2d' },
+                                { w:1, fsync:true },
+                                function (err) {
+                                    if (err) return callback (err);
+                                    async.each (documents, function (doc, callback) {
+                                        targetCollection.insert (doc, { w:1, fsync:true }, callback);
+                                    }, callback);
+                                }
+                            );
+                        });
+                    }
+                ], function (err) {
+                    if (err) return done (err);
+
+                    // process the same operation raw and compressed, then compare results
+                    var sample, target;
+                    async.parallel ([
+                        function (callback) {
+                            var pipeCheck = JSON.stringify (pipeline);
+                            collection.aggregate (pipeline, function (err, recs) {
+                                if (err) return callback (err);
+                                if (JSON.stringify (pipeline) != pipeCheck)
+                                    return callback (new Error (
+                                        'compression damaged input pipeline spec'
+                                    ));
+                                sample = recs;
+                                callback();
+                            });
+                        },
+                        function (callback) {
+                            targetCollection.aggregate (pipeline, function (err, recs) {
+                                if (err) return callback (err);
+                                target = recs;
+                                callback();
+                            });
+                        },
+                    ], function (err) {
+                        if (err) return done (err);
+
+                        for (var i in target) delete target[i]._id;
+                        for (var i in sample) delete sample[i]._id;
+
+                        if (sample.length != target.length) {
+                            console.log (JSON.stringify (target));
+                            console.log (JSON.stringify (sample));
+                            return done (new Error (
+                                'mingydb returned the wrong number of records'
+                            ));
+                        }
+
+                        for (var i=0,j=sample.length; i<j; i++) {
+                            var candidate = sample[i];
+                            var found = false;
+                            for (var k in target)
+                                if (matchLeaves (candidate, target[k], true)) {
+                                    found = true;
+                                    break;
+                                }
+                            if (!found) {
+                                console.log (JSON.stringify (target));
+                                console.log (JSON.stringify (sample));
+                                return done (new Error ('mingydb and mongodb disagreed'));
+                            }
+                        }
+
+                        done();
+                    });
+                });
+            });
 
         });
 

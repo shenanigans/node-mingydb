@@ -200,7 +200,7 @@ describe ("compression", function(){
     });
 
     var arrTestDoc, arrTestGoal;
-    it ("compresses a document an Array of subdocuments", function (done) {
+    it ("compresses a document with an Array of subdocuments", function (done) {
         if (!testDoc)
             return process.nextTick (function(){ return done (new Error (
                 'could not proceeded - previous test failed'
@@ -270,7 +270,7 @@ describe ("compression", function(){
         });
     });
 
-    it ("correctly decompresses array subdocuments", function (done) {
+    it ("correctly decompresses an Array of subdocuments", function (done) {
         testCompressor.decompress (arrTestDoc, function (err, decompressed) {
             if (err) return done (err);
             try {

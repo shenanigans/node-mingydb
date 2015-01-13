@@ -4,8 +4,60 @@ var async = require ('async');
 var mingydb = require ('../main');
 var mongodb = require ('mongodb');
 
+var typeGetter = ({}).toString;
+function getTypeStr (obj) {
+    var tstr = typeGetter.apply(obj).slice(8,-1).toLowerCase();
+    if (tstr == 'object')
+        if (obj instanceof Buffer) return 'buffer';
+        else return tstr;
+    if (tstr == 'text') return 'textnode';
+    if (tstr == 'comment') return 'commentnode';
+    if (tstr.slice(0,4) == 'html') return 'element';
+    return tstr;
+}
+
+function matchLeaves (able, baker, arraysAsSets) {
+    if (able === baker) return true;
+
+    var aType = getTypeStr (able);
+    var bType = getTypeStr (baker);
+    if (aType != bType) return false;
+    if (aType == 'array') {
+        if (able.length != baker.length) return false;
+        if (!arraysAsSets) {
+            for (var i in able)
+                if (!matchLeaves (able[i], baker[i], arraysAsSets))
+                    return false;
+            return true;
+        }
+        for (var i in able) {
+            var found = false;
+            for (var j in baker) {
+                if (matchLeaves (able[i], baker[j], arraysAsSets)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
+        }
+        return true;
+    } else if (aType == 'object') {
+        var keys = Object.keys (able);
+        if (keys.length != Object.keys (baker).length) return false;
+        for (var i in keys) {
+            var key = keys[i];
+            if (
+                !Object.hasOwnProperty.call (baker, key)
+             || !matchLeaves (able[key], baker[key], arraysAsSets)
+            )
+                return false;
+        }
+        return true;
+    } else return false;
+}
+
 describe ("Collection", function(){
-    this.timeout (150); // sometimes Mongo's first op in a while is very slow
+    this.timeout (500); // sometimes Mongo's first op in a while is very slow
 
     var nextID = 1;
     function getNextID(){ return 'tempID_'+nextID++; }
@@ -153,6 +205,62 @@ describe ("Collection", function(){
                 done
             );
         });
+
+        it ("survives a storm of mixed parallel insertions", function (done) {
+            this.timeout (5000);
+            var keys = [ 'jim', 'joe', 'jeff', 'paul', 'peter', 'chris', 'charles', 'ruby' ];
+            function randomDoc (level) {
+                level = level || 0;
+                if (level > 5) return {};
+                var doc = { _id:getNextID() };
+                for (var i=0; i<4; i++) {
+                    if (Math.random() < 0.33)
+                        doc[keys[Math.floor (keys.length * Math.random())]] = randomDoc (level + 1);
+                    else
+                        doc[keys[Math.floor (keys.length * Math.random())]] = 100 * Math.random();
+                }
+                return doc;
+            }
+
+            var goal = 128;
+            var complete = 0;
+            var killed = false;
+            for (var i=0,j=16; i<j; i++) (function insertRandomDoc(){
+                var doc = randomDoc();
+                var check = JSON.stringify (doc);
+                testCollection.insert (doc, { w:1 }, function (err) {
+                    if (killed) return;
+                    if (err) {
+                        killed = true;
+                        return done (err);
+                    }
+                    testCollection.findOne ({ _id:doc._id }, function (err, rec) {
+                        if (killed) return;
+                        if (err) {
+                            killed = true;
+                            return done (err);
+                        }
+                        if (!rec) {
+                            killed = true;
+                            return done (new Error ('failed to retrieve record after insertion'));
+                        }
+                        if (!matchLeaves (rec, doc)) {
+                            killed = true;
+                            return done (new Error (
+                                'record retrieved after insertion did not match'
+                            ));
+                        }
+
+                        complete++;
+                        if (complete < goal)
+                            return process.nextTick (insertRandomDoc);
+                        killed = true;
+                        done();
+                    });
+                });
+            })();
+        });
+
     });
 
     describe ("#ensureIndex", function(){
@@ -1190,10 +1298,6 @@ describe ("Collection", function(){
     });
 
     describe ("#geoHaystack", function(){
-
-    });
-
-    describe ("#aggregate", function(){
 
     });
 
