@@ -1105,7 +1105,7 @@ describe ("Collection", function(){
         });
 
         it ('retrieves several distinct values with a limiting query', function (done) {
-            testCollection.distinct ('baker', { $lt:4 }, function (err, vals) {
+            testCollection.distinct ('baker', { baker:{ $lt:4 } }, function (err, vals) {
                 if (err) return done (err);
                 if (vals.length != 4) return done (new Error (
                     'retrieved wrong number of distinct values'
@@ -1125,104 +1125,123 @@ describe ("Collection", function(){
         });
 
         it ('retrieves several distinct array subdocuments with a limiting query', function (done) {
-            async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
-                testCollection.insert (
-                    {
-                        _id:    getNextID(),
-                        able:   [
-                            {
-                                able:   i,
-                                baker:  5 - i
-                            },
-                            {
-                                able:   i + 10,
-                                baker:  15 - i
-                            },
-                            {
-                                able:   i + 20,
-                                baker:  25 - i
-                            }
-                        ],
-                        test:   "distinct_limit_01"
-                    },
-                    { w:1 },
-                    callback
-                );
+            var results = [];
+            async.each ([ testCollection, rawTestCollection ], function (collection, callback) {
+                async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
+                    collection.insert (
+                        {
+                            _id:    getNextID(),
+                            able:   [
+                                {
+                                    able:   i,
+                                    baker:  5 - i
+                                },
+                                {
+                                    able:   i + 10,
+                                    baker:  15 - i
+                                },
+                                {
+                                    able:   i + 20,
+                                    baker:  25 - i
+                                }
+                            ],
+                            test:   "distinct_limit_01"
+                        },
+                        { w:1 },
+                        callback
+                    );
+                }, function (err) {
+                    if (err) return done (err);
+
+                    collection.distinct ('able', { 'able.able':{ $gte:20 }}, function (err, vals) {
+                        if (err) return done (err);
+                        results.push (vals);
+                        callback();
+                    });
+                });
             }, function (err) {
                 if (err) return done (err);
-
-                testCollection.distinct ('able', { 'able.able':{ $gte:20 }}, function (err, vals) {
-                    if (err) return done (err);
-                    if (vals.length != 6) return done (new Error (
-                        'retrieved wrong number of distinct values'
-                    ));
-                    var results = { 20:false, 21:false, 22:false, 23:false, 24:false, 25:false };
-                    for (var i in vals)
-                        results[vals[i].able] = true;
-                    if (Object.keys (results).length != 6) return done (new Error (
-                        'retrieved wrong values'
-                    ));
-                    for (var key in results)
-                        if (!results[key]) return done (new Error (
-                            'retrieved wrong values'
-                        ));
-                    done();
-                });
+                var zeroth = results[0];
+                for (var i=1,j=results.length; i<j; i++) {
+                    if (zeroth.length != results[i].length)
+                        return done (new Error ('retrieved wrong number of results'));
+                    for (var k in zeroth) {
+                        var found = false;
+                        for (var l in results[i])
+                            if (matchLeaves (zeroth[k], results[i][l])) {
+                                found = true;
+                                break;
+                            }
+                        if (!found)
+                            return done (new Error ('retrieved incorrect result set'));
+                    }
+                }
+                done();
             });
+
         });
 
         it ('retrieves several distinct array subdocuments on a deep path (with query)', function (done) {
-            async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
-                testCollection.insert (
-                    {
-                        _id:    getNextID(),
-                        able:   {
+            var results = [];
+            async.each ([ testCollection, rawTestCollection ], function (collection, callback) {
+                async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
+                    collection.insert (
+                        {
+                            _id:    getNextID(),
                             able:   {
-                                able:   [
-                                    {
-                                        able:   i,
-                                        baker:  5 - i
-                                    },
-                                    {
-                                        able:   i + 10,
-                                        baker:  15 - i
-                                    },
-                                    {
-                                        able:   i + 20,
-                                        baker:  25 - i
-                                    }
-                                ],
-                            }
+                                able:   {
+                                    able:   [
+                                        {
+                                            able:   i,
+                                            baker:  5 - i
+                                        },
+                                        {
+                                            able:   i + 10,
+                                            baker:  15 - i
+                                        },
+                                        {
+                                            able:   i + 20,
+                                            baker:  25 - i
+                                        }
+                                    ],
+                                }
+                            },
+                            test:   "distinct_limit_02"
                         },
-                        test:   "distinct_limit_02"
-                    },
-                    { w:1 },
-                    callback
-                );
+                        { w:1 },
+                        callback
+                    );
+                }, function (err) {
+                    if (err) return done (err);
+
+                    collection.distinct (
+                        'able.able.able',
+                        { 'able.able.able.able':{ $gte:20 }},
+                        function (err, vals) {
+                            if (err) return done (err);
+                            results.push (vals);
+                            callback();
+                        }
+                    );
+                });
             }, function (err) {
                 if (err) return done (err);
-
-                testCollection.distinct (
-                    'able.able.able',
-                    { 'able.able.able.able':{ $gte:20 }},
-                    function (err, vals) {
-                        if (err) return done (err);
-                        if (vals.length != 6) return done (new Error (
-                            'retrieved wrong number of distinct values'
-                        ));
-                        var results = { 20:false, 21:false, 22:false, 23:false, 24:false, 25:false };
-                        for (var i in vals)
-                            results[vals[i].able] = true;
-                        if (Object.keys (results).length != 6) return done (new Error (
-                            'retrieved wrong values'
-                        ));
-                        for (var key in results)
-                            if (!results[key]) return done (new Error (
-                                'retrieved wrong values'
-                            ));
-                        done();
+                var zeroth = results[0];
+                for (var i=1,j=results.length; i<j; i++) {
+                    if (zeroth.length != results[i].length)
+                        return done (new Error ('retrieved wrong number of results'));
+                    for (var k in zeroth) {
+                        var found = false;
+                        for (var l in results[i])
+                            if (matchLeaves (zeroth[k], results[i][l])) {
+                                found = true;
+                                break;
+                            }
+                        if (!found)
+                            return done (new Error ('retrieved incorrect result set'));
                     }
-                );
+                }
+                done();
             });
         });
     });
