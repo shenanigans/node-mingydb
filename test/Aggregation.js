@@ -58,10 +58,10 @@ var collection, rawCollection, targetCollection;
 function testAggregation (documents, pipeline, callback, arraysAsSets) {
     async.parallel ([
         function (callback) {
-            collection.remove ({}, { w:1, j:true }, callback);
+            collection.remove ({}, { w:1, fsync:true }, callback);
         },
         function (callback) {
-            targetCollection.remove ({}, { w:1, j:true }, callback);
+            targetCollection.remove ({}, { w:1, fsync:true }, callback);
         }
     ], function (err) {
         if (err) return callback (err);
@@ -84,8 +84,28 @@ function testAggregation (documents, pipeline, callback, arraysAsSets) {
             async.parallel ([
                 function (callback) {
                     var pipeCheck = JSON.stringify (pipeline);
-                    collection.aggregate (pipeline, function (err, recs) {
-                        if (err) return callback (err);
+                    collection.aggregate (pipeline, function (aggErr, recs) {
+                        if (aggErr) {
+                            return collection.find ({}, function (err, cursor) {
+                                if (err) return callback (err);
+                                cursor.toArray (function (err, recs) {
+                                    if (err) return callback (err);
+                                    console.log (recs);
+                                    rawCollection.find ({}, function (err, cursor) {
+                                        if (err) return callback (err);
+                                        cursor.toArray (function (err, recs) {
+                                            if (err) return callback (err);
+                                            console.log (JSON.stringify (recs));
+                                            collection.aggregate (pipeline, function (err, recs) {
+                                                console.log (err, recs);
+                                                callback (aggErr);
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        }
+
                         if (JSON.stringify (pipeline) != pipeCheck)
                             return callback (new Error (
                                 'compression damaged input pipeline spec'
@@ -124,8 +144,18 @@ function testAggregation (documents, pipeline, callback, arraysAsSets) {
                             break;
                         }
                     if (!found) {
-                        console.log (JSON.stringify (target));
-                        console.log (JSON.stringify (sample));
+                        console.log (
+                            JSON.stringify (sample)
+                           .replace ('[', '[\n  ')
+                           .replace (',', ',\n  ')
+                           .replace (']', ']\n')
+                        );
+                        console.log (
+                            JSON.stringify (target)
+                           .replace ('[', '[\n  ')
+                           .replace (',', ',\n  ')
+                           .replace (']', ']\n')
+                        );
                         return callback (new Error ('mingydb and mongodb disagreed'));
                     }
                 }
@@ -179,30 +209,30 @@ describe ("Aggregation", function(){
 
     describe ("#aggregate", function(){
 
-        describe ("$match", function(){
+        // describe ("$match", function(){
 
-            it ("selectively passes documents with a query", function (done) {
-                testAggregation ([
-                    { able:9, baker:1 },
-                    { able:8, baker:2 },
-                    { able:7, baker:3 },
-                    { able:6, baker:4 },
-                    { able:5, baker:5 },
-                    { able:4, baker:6 },
-                    { able:3, baker:7 },
-                    { able:2, baker:8 },
-                    { able:1, baker:9 }
-                ], [
-                    {
-                        $match:     {
-                            able:   { $gt:2 },
-                            baker:  { $gt:2 }
-                        }
-                    }
-                ], done);
-            });
+        //     it ("selectively passes documents with a query", function (done) {
+        //         testAggregation ([
+        //             { able:9, baker:1 },
+        //             { able:8, baker:2 },
+        //             { able:7, baker:3 },
+        //             { able:6, baker:4 },
+        //             { able:5, baker:5 },
+        //             { able:4, baker:6 },
+        //             { able:3, baker:7 },
+        //             { able:2, baker:8 },
+        //             { able:1, baker:9 }
+        //         ], [
+        //             {
+        //                 $match:     {
+        //                     able:   { $gt:2 },
+        //                     baker:  { $gt:2 }
+        //                 }
+        //             }
+        //         ], done);
+        //     });
 
-        });
+        // });
 
         describe ("$project", function(){
 
@@ -272,7 +302,7 @@ describe ("Aggregation", function(){
 
         describe ("$sort", function(){
 
-            it ("sorts the input by the value of an expression", function (done) {
+            it ("sorts the input records", function (done) {
                 testAggregation ([
                     { able:{ baker:9 }, baker:42 },
                     { able:{ baker:8 }, baker:42 },
@@ -280,7 +310,8 @@ describe ("Aggregation", function(){
                     { able:{ baker:6 }, baker:42 },
                 ], [
                     { $sort:{
-                        'able.baker':   1
+                        'able.baker':   1,
+                        baker:          -1
                     }}
                 ], done);
             });
@@ -436,7 +467,8 @@ describe ("Aggregation", function(){
                             { able:{ baker:9 },         foo:56 }
                         ], [
                             { $sort:{
-                                'able.baker':   1
+                                'able.baker':   1,
+                                foo:            -1
                             }},
                             { $group:{
                                 _id:        '$able.baker',
@@ -467,7 +499,8 @@ describe ("Aggregation", function(){
                             { able:{ baker:9 },         foo:56 }
                         ], [
                             { $sort:{
-                                'able.baker':   1
+                                'able.baker':   1,
+                                foo:            -1
                             }},
                             { $group:{
                                 _id:        '$able.baker',
@@ -613,46 +646,6 @@ describe ("Aggregation", function(){
                 ], done);
             });
 
-            it ("makes recursive redactions", function (done) {
-                testAggregation ([
-                    { able:[ 'a', 'b' ], baker:[
-                        { able:[ 'a', 'b' ] },
-                        { able:[ 'b', 'c' ] },
-                        { able:[ 'c', 'd' ] },
-                        { able:[ 'd', 'b' ] }
-                    ] },
-                    { able:[ 'b', 'c' ], baker:[
-                        { able:[ 'a', 'b' ] },
-                        { able:[ 'b', 'c' ] },
-                        { able:[ 'c', 'd' ] },
-                        { able:[ 'd', 'b' ] }
-                    ] },
-                    { able:[ 'c', 'd' ], baker:[
-                        { able:[ 'a', 'b' ] },
-                        { able:[ 'b', 'c' ] },
-                        { able:[ 'c', 'd' ] },
-                        { able:[ 'd', 'b' ] }
-                    ] },
-                    { able:[ 'd', 'b' ], baker:[
-                        { able:[ 'a', 'b' ] },
-                        { able:[ 'b', 'c' ] },
-                        { able:[ 'c', 'd' ] },
-                        { able:[ 'd', 'b' ] }
-                    ] },
-                ], [
-                    { $redact:{
-                        $cond:{
-                            if:         { $gt: [ { $size:{ $setIntersection:[
-                                "$able",
-                                [ 'b' ]
-                            ] } }, 0 ] },
-                            then:       '$$DESCEND',
-                            'else':     '$$PRUNE'
-                        }
-                    } }
-                ], done);
-            });
-
         });
 
         describe ("$geoNear", function(){
@@ -768,6 +761,56 @@ describe ("Aggregation", function(){
                         done();
                     });
                 });
+            });
+
+        });
+
+        describe ("$out", function(){
+
+            it ("outputs to another compressed collection with $group", function (done) {
+                var testDoc;
+                collection.insert (
+                    testDoc = {
+                        test:   'namespace',
+                        fox:    {
+                            george: {
+                                hotel:  9001
+                            },
+                            hotel:  9002
+                        },
+                        george: {
+                            hotel:  9003
+                        },
+                        hotel:  9004
+                    },
+                    { w:1 },
+                    function (err) {
+                        if (err) return done (err);
+                        collection.aggregate ([
+                            { $match:{ test:'namespace' } },
+                            { $group:{
+                                foo:        '$fox.george.hotel',
+                                'bar.baz':  '$george.hotel',
+                                bunkus:     '$hotel'
+                            } },
+                            { $out:'test-mingydb-aggregation' }
+                        ], function (err, recs) {
+                            if (err) return done (err);
+                            if (!recs || recs.length != 1)
+                                return done (new Error ('retrieved wrong number of documents'));
+                            if (!matchLeaves (recs[0], {
+                                foo:    9001,
+                                bar:    {
+                                    baz:    9003
+                                },
+                                bunkus: 9004
+                            })) {
+                                console.log (recs[0]);
+                                return done (new Error ('retrieved document was incorrect'));
+                            }
+                        });
+                    }
+                );
             });
 
         });

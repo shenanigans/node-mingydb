@@ -207,8 +207,9 @@ describe ("Collection", function(){
         });
 
         it ("survives a storm of mixed parallel insertions", function (done) {
-            this.timeout (5000);
+            this.timeout (4000);
             var keys = [ 'jim', 'joe', 'jeff', 'paul', 'peter', 'chris', 'charles', 'ruby' ];
+
             function randomDoc (level) {
                 level = level || 0;
                 if (level > 5) return {};
@@ -222,10 +223,10 @@ describe ("Collection", function(){
                 return doc;
             }
 
-            var goal = 128;
+            var goal = 64;
             var complete = 0;
             var killed = false;
-            for (var i=0,j=16; i<j; i++) (function insertRandomDoc(){
+            for (var i=0,j=10; i<j; i++) (function insertRandomDoc(){
                 var doc = randomDoc();
                 var check = JSON.stringify (doc);
                 testCollection.insert (doc, { w:1 }, function (err) {
@@ -342,15 +343,16 @@ describe ("Collection", function(){
         });
     });
 
+    var indexNames = {
+        "_id_":                         true,
+        "able_1_cheddar_-1_baker_1":    true,
+        "able_1_gouda_-1_baker_1":      true,
+        "able_1_edam_-1_baker_1":       true,
+        "able_1_stilton_-1_baker_1":    true,
+        "able_1_bris_-1_baker_1":       true,
+        "parmesan":                     true
+    };
     describe ("#listIndexes IndexCursor", function(){
-        var indexNames = {
-            "_id_":                         true,
-            "able_1_cheddar_-1_baker_1":    true,
-            "able_1_gouda_-1_baker_1":      true,
-            "able_1_edam_-1_baker_1":       true,
-            "able_1_stilton_-1_baker_1":    true,
-            "able_1_bris_-1_baker_1":       true
-        };
 
         before (function (done) {
             async.each (
@@ -361,7 +363,14 @@ describe ("Collection", function(){
                     spec.baker = 1;
                     testCollection.ensureIndex (spec, callback);
                 },
-                done
+                function (err) {
+                    if (err) return done (err);
+                    testCollection.ensureIndex (
+                        { able:1, parmesan:-1 },
+                        { name:'parmesan', w:1 },
+                        done
+                    );
+                }
             );
         });
 
@@ -374,7 +383,7 @@ describe ("Collection", function(){
                 if (err) return done (err);
 
                 if (!spec) {
-                    if (specs.length != 6)
+                    if (specs.length != 7)
                         return done (new Error (
                             'retrieved wrong number of index specifications ('+specs.length+')'
                         ));
@@ -401,9 +410,9 @@ describe ("Collection", function(){
                     return done (new Error (
                         'did not retrieve an array'
                     ));
-                if (indexDocs.length != 6)
+                if (indexDocs.length != 7)
                     return done (new Error (
-                        'retrieved wrong number of index specifications ('+specs.length+')'
+                        'retrieved wrong number of index specifications ('+indexDocs.length+')'
                     ));
                 for (var i in indexDocs)
                     if (!Object.hasOwnProperty.call (indexNames, indexDocs[i].name))
@@ -423,7 +432,7 @@ describe ("Collection", function(){
                 if (err) return done (err);
 
                 if (!spec) {
-                    if (specs.length != 6)
+                    if (specs.length != 7)
                         return done (new Error (
                             'retrieved wrong number of index specifications ('+specs.length+')'
                         ));
@@ -439,23 +448,45 @@ describe ("Collection", function(){
                 specs.push (spec);
             });
         });
-
-        it ("handles named indexes without converting");
     });
 
     describe ("#indexInformation", function(){
-        it ("provides index information for indexes with converted names");
 
-        it ("handles named indexes without converting");
+        it ("provides index information with and without converted names", function (done) {
+            testCollection.indexInformation (function (err, info) {
+                if (err) return done (err);
+                for (var name in info)
+                    if (!Object.hasOwnProperty.call (indexNames, name))
+                        return done (new Error ('information Object contained invalid index name'));
+                done();
+            });
+        });
     });
 
     describe ("#indexExists", function(){
-        it ("confirms existence of a name-converted index");
 
-        it ("handles named indexes without converting");
+        it ("confirms existence of a name-converted index", function (done) {
+            testCollection.indexExists ([ 'able_1_stilton_-1_baker_1' ], function (err, exists) {
+                if (err) return done (err);
+                if (!exists)
+                    return done (new Error ('index not found'));
+                done();
+            });
+        });
+
+        it ("confirms existence of a named index without converting", function (done) {
+            testCollection.indexExists ([ 'parmesan' ], function (err, exists) {
+                if (err) return done (err);
+                if (!exists)
+                    return done (new Error ('index not found'));
+                done();
+            });
+        });
+
     });
 
     describe ("#find", function(){
+
         var cursor;
         it ("retrieves a cursor for a query", function (done) {
             async.each ([ 0, 1, 2, 3, 4, 5, 6, 7 ], function (i, callback) {
@@ -479,8 +510,11 @@ describe ("Collection", function(){
                 );
             });
         });
+
         describe (".Cursor", function(){
+
             describe ("#count", function(){
+
                 it ("counts several selected records", function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -515,6 +549,7 @@ describe ("Collection", function(){
             });
 
             describe ("#nextObject", function(){
+
                 it ("retrieves several selected records with nextObject", function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -553,6 +588,7 @@ describe ("Collection", function(){
             });
 
             describe ("#each", function(){
+
                 it ("retrieves several selected records with each", function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -584,6 +620,7 @@ describe ("Collection", function(){
             });
 
             describe ("#rewind", function(){
+
                 it ("rewinds with #nextObject iteration", function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -624,6 +661,7 @@ describe ("Collection", function(){
                         }
                     );
                 });
+
                 it ("rewinds with #each iteration", function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -658,6 +696,7 @@ describe ("Collection", function(){
             });
 
             describe ("#toArray", function(){
+
                 it ('retrieves several documents as an Array', function (done) {
                     testCollection.find (
                         { test:'find', able:{ $mod:[ 2, 1 ] }},
@@ -695,6 +734,7 @@ describe ("Collection", function(){
             });
 
             describe ("#explain", function(){
+
                 it ("explains a query with converted index names", function (done) {
                     testCollection.ensureIndex ({ xray:-1, zebra:1 }, function (err) {
                         if (err) return done (err);
@@ -718,10 +758,32 @@ describe ("Collection", function(){
                     });
                 });
 
-                it ("handles named indexes without converting");
+                it ("handles named indexes without converting", function (done) {
+                    testCollection.ensureIndex ({ zulu:1 }, { name:'foogoo' }, function (err) {
+                        if (err) return done (err);
+                        testCollection.find (
+                            { zulu:2, test:'find' },
+                            function (err, cursor) {
+                                if (err) return done (err);
+                                cursor.explain (function (err, info) {
+                                    if (err) return done (err);
+                                    if (!info) return done (new Error (
+                                        'did not retrieve any query information'
+                                    ));
+                                    if (info.cursor !== "BtreeCursor foogoo")
+                                        return done (new Error (
+                                            'incorrect cursor info "'+info.cursor+'"'
+                                        ));
+                                    done();
+                                });
+                            }
+                        );
+                    });
+                });
             });
 
             describe ("#close", function(){
+
                 it ("closes the cursor", function (done) {
                     testCollection.find (
                         { test:'find', xrazy:2, zebra:2 },
@@ -731,11 +793,13 @@ describe ("Collection", function(){
                         }
                     );
                 });
+
             });
         });
     });
 
     describe ("#findOne", function(){
+
         it ("retrieves a single document with a simple query", function (done) {
             async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
                 testCollection.insert (
@@ -896,6 +960,7 @@ describe ("Collection", function(){
 
 
     describe ("#findAll", function(){
+
         it ("retrieves several documents with a simple query", function (done) {
             async.each ([ 0, 1, 2, 9, 9, 9, 7, 8, 10 ], function (i, callback) {
                 testCollection.insert (
@@ -955,6 +1020,7 @@ describe ("Collection", function(){
 
 
     describe ("#findAndModify", function(){
+
         it ("simple query and update, simple Object sort", function (done) {
             async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
                 testCollection.insert (
@@ -1066,26 +1132,238 @@ describe ("Collection", function(){
 
 
     describe ("#findAndRemove", function(){
-        it ("finds and removes a document");
+
+        it ("finds and removes a document", function (done) {
+            testCollection.insert (
+                { test:'findAndRemove', charlie:{ baker:{ able:42 }}},
+                { w:1 },
+                function (err) {
+                    if (err) return done (err);
+                    testCollection.findAndRemove ({ 'charlie.baker.able':42 }, function (err, rec) {
+                        if (err) return done (err);
+                        if (!rec)
+                            return done (new Error ('did not retrieve the document'));
+                        testCollection.find ({ test:'findAndRemove' }, function (err, cursor) {
+                            if (err) return done (err);
+                            cursor.count (function (err, n) {
+                                if (err) return done (err);
+                                if (n)
+                                    return done (new Error ('did not delete the document'));
+                                done();
+                            });
+                        });
+                    });
+                }
+            );
+        });
+
     });
 
     describe ("#update", function(){
-        it ("updates a document");
 
-        it ("updates a document with the positional operator");
+        before (function (done) {
+            testCollection.insert (
+                {
+                    test:       'updates',
+                    able:       97,
+                    baker:      {
+                        able:       {
+                            charlie:    103
+                        }
+                    },
+                    charlie:    [
+                        {
+                            able:       0,
+                            baker:      9000
+                        },
+                        {
+                            able:       1,
+                            baker:      9000
+                        },
+                        {
+                            able:       2,
+                            baker:      9000
+                        },
+                        {
+                            able:       3,
+                            baker:      9000
+                        },
+                        {
+                            able:       4,
+                            baker:      9000
+                        }
+                    ]
+                },
+                { w:1 },
+                done
+            );
+        });
+
+        it ("updates a document", function (done) {
+            testCollection.update (
+                { test:'updates', 'baker.able.charlie':{ $gt:10 }},
+                { $inc:{ able:3, 'baker.able.charlie':97 }},
+                { w:1 },
+                function (err) {
+                    if (err) return done (err);
+                    testCollection.findOne ({ test:'updates' }, function (err, rec) {
+                        if (err) return done (err);
+                        if (!rec)
+                            return done (new Error ('failed to retrieve document after update'));
+
+                        delete rec._id;
+
+                        if (!matchLeaves (rec, {
+                                test:       'updates',
+                                able:       100,
+                                baker:      {
+                                    able:       {
+                                        charlie:    200
+                                    }
+                                },
+                                charlie:    [
+                                    {
+                                        able:       0,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       1,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       2,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       3,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       4,
+                                        baker:      9000
+                                    }
+                                ]
+                        }))
+                            return done (new Error ('record did not match expected outcome'));
+                        done();
+                    });
+                }
+            );
+        });
+
+        it ("updates a document with the positional operator", function (done) {
+            testCollection.update (
+                { test:'updates', 'charlie.able':{ $gt:2 }},
+                { $inc:{ 'charlie.$.baker':1 }},
+                { w:1 },
+                function (err) {
+                    if (err) return done (err);
+                    testCollection.findOne ({ test:'updates' }, function (err, rec) {
+                        if (err) return done (err);
+                        if (!rec)
+                            return done (new Error ('failed to retrieve document after update'));
+
+                        delete rec._id;
+
+                        assert.deepEqual (
+                            rec,
+                            {
+                                test:       'updates',
+                                able:       100,
+                                baker:      {
+                                    able:       {
+                                        charlie:    200
+                                    }
+                                },
+                                charlie:    [
+                                    {
+                                        able:       0,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       1,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       2,
+                                        baker:      9000
+                                    },
+                                    {
+                                        able:       3,
+                                        baker:      9001
+                                    },
+                                    {
+                                        able:       4,
+                                        baker:      9000
+                                    }
+                                ]
+                            },
+                            'record did not match expected outcome'
+                        );
+                        done();
+                    });
+                }
+            );
+        });
+
     });
 
 
     describe ("#remove", function(){
-        it ("removes a document");
 
-        it ("removes several documents");
+        it ("removes several documents", function (done) {
+            async.times (8, function (n, callback) {
+                testCollection.insert ({
+                    _id:        getNextID(),
+                    test:       'remove',
+                    removalKey: n
+                }, { w:1 }, callback);
+            }, function (err) {
+                if (err) return done (err);
+                testCollection.remove ({ removalKey:{ $gte:2, $lte:4 } }, { w:1 }, function (err) {
+                    if (err) return done (err);
+                    testCollection.find ({ test:'remove' }, function (err, cursor) {
+                        if (err) return done (err);
+                        cursor.toArray (function (err, recs) {
+                            if (err) return done (err);
+                            if (!recs)
+                                return done (new Error ('removed everything!'));
+                            if (recs.length != 5)
+                                return done (new Error ('removed wrong number of documents'));
+
+                            for (var i in recs) {
+                                var rec = recs[i];
+                                if (
+                                    !Object.hasOwnProperty.call (rec, 'removalKey')
+                                 || ( rec.removalKey >= 2 && rec.removalKey <= 4 )
+                                )
+                                    return done (new Error ('removed wrong documents'));
+                            }
+
+                            done()
+                        });
+                    });
+                });
+            });
+        });
+
     });
 
 
     describe ("#distinct", function(){
+
+        before (function (done) {
+            async.times (6, function (n, callback) {
+                testCollection.insert ({
+                    _id:            getNextID(),
+                    test:           'distinct',
+                    distinctive:    n
+                }, { w:1 }, callback);
+            }, done);
+        });
+
         it ('retrieves several distinct values with a simple key', function (done) {
-            testCollection.distinct ('baker', function (err, vals) {
+            testCollection.distinct ('distinctive', function (err, vals) {
                 if (err) return done (err);
                 if (vals.length != 6) return done (new Error (
                     'retrieved wrong number of distinct values'
@@ -1105,7 +1383,7 @@ describe ("Collection", function(){
         });
 
         it ('retrieves several distinct values with a limiting query', function (done) {
-            testCollection.distinct ('baker', { baker:{ $lt:4 } }, function (err, vals) {
+            testCollection.distinct ('distinctive', { distinctive:{ $lt:4 } }, function (err, vals) {
                 if (err) return done (err);
                 if (vals.length != 4) return done (new Error (
                     'retrieved wrong number of distinct values'
@@ -1244,17 +1522,39 @@ describe ("Collection", function(){
                 done();
             });
         });
+
     });
 
     describe ("#count", function(){
-        it ("counts records matching a query");
-    });
 
-    describe ("#drop", function(){
-        it ("drops the entire collection");
+        it ("counts records matching a query", function (done) {
+            async.each ([ 0, 1, 2, 3, 4, 5 ], function (i, callback) {
+                testCollection.insert (
+                    {
+                        _id:    getNextID(),
+                        able:   i,
+                        test:   "simpleFindOne"
+                    },
+                    { w:1 },
+                    callback
+                );
+            }, function (err) {
+                if (err) return done (err);
+                testCollection.findOne ({ able:3, test:"simpleFindOne" }, function (err, record) {
+                    if (err) return done (err);
+                    if (!record)
+                        return done (new Error ('failed to retrieve anything'));
+                    if (record.able !== 3)
+                        return done (new Error ('retrieved the wrong document'));
+                    done();
+                });
+            });
+        });
+
     });
 
     describe ("#options", function(){
+
         it ("always returns an explanatory Error", function (done) {
             var sync = true;
             testCollection.options (function (err, options) {
@@ -1280,55 +1580,37 @@ describe ("Collection", function(){
             sync = false;
         });
 
-        // it ("acquires a collection options document", function (done) {
-        //     mingydb.rawDatabase (
-        //         'test-mingydb',
-        //         new mongodb.Server ('127.0.0.1', 27017),
-        //         function (err, db) {
-        //             if (err) return done (err);
-        //             db.createCollection (
-        //                 "test-mingydb-extra",
-        //                 { capped:true, size:2048, max:10, w:1 },
-        //                 function (err) {
-        //                     if (err) return done (err);
-        //                     mingydb.collection (
-        //                         'test-mingydb',
-        //                         'test-mingydb-extra',
-        //                         new mongodb.Server ('127.0.0.1', 27017),
-        //                         function (err, col) {
-        //                             if (err) return done (err);
-        //                             col.options (function (err, options) {
-        //                                 if (err) return done (err);
-        //                                 console.log (options);
-        //                                 // verify options info!
-        //                                 done();
-        //                             });
-        //                         }
-        //                     );
-        //                 }
-        //             );
-        //         }
-        //     );
-        // });
     });
 
     describe ("#geoNear", function(){
+
+        it ("finds documents located near a legacy point");
+
+        it ("finds documents located near a `2dsphere` point");
 
     });
 
     describe ("#geoHaystack", function(){
 
+
+
     });
 
     describe ("#stats", function(){
+
+
 
     });
 
     describe ("#initializeOrderedBulkOp", function(){
 
+
+
     });
 
     describe ("#parallelCollectionScan", function(){
+
+
 
     });
 });
