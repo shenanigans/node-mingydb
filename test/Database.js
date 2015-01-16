@@ -14,7 +14,7 @@ describe ("Database", function(){
         db.open (function (err) {
             if (err) return done (err);
             async.each ([ 'test-mingydb', '_mins' ], function (dbname, callback) {
-                db.collection (dbname, function (err, col) {
+                db.collection (dbname, function doRemove (err, col) {
                     if (err) return callback (err);
                     col.remove ({}, { w:1 }, function (err) {
                         if (err) return callback (err);
@@ -25,10 +25,11 @@ describe ("Database", function(){
                                 cursor.count (function (err, n) {
                                     if (err) return callback (err);
                                     if (n)
-                                        return cursor.toArray (function (err, recs) {
-                                            console.log (recs);
-                                            callback (new Error ('failed to delete records'));
-                                        });
+                                        return doRemove (undefined, col);
+                                        // return cursor.toArray (function (err, recs) {
+                                        //     console.log (recs);
+                                        //     callback (new Error ('failed to delete records'));
+                                        // });
 
                                     async.parallel ([
                                         function (callback) {

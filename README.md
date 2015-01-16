@@ -25,22 +25,36 @@ Using MingyDB
 var mongodb = require ('mingydb');
 ```
 
-The following caveats apply:
+The api differs in a few ways:
  * The `save` method is not supported.
  * Nothing officially deprecated is supported.
  * The `$where` operator will fail.
  * MapReduce is not supported. Use aggregation.
- * When aggregating, special care must be taken when transplanting subdocuments into a new path.
- * `Collection#find` and `Collection#findOne` have no `skip`, `limit`, or `timeout` arguments. You must put them in `options`. When three arguments are provided, the second is **always** assumed to be a projection, **never** an `options` Object.
- * The standard driver's method `Collection#options` is not supported, because I can't find any documentation on it or get it to work. If anyone uses this, please enlighten me.
+ * `Collection#find` and `Collection#findOne` have no `skip`, `limit`, or `timeout` arguments. When three arguments are provided, the second is **always** assumed to be a projection, **never** an `options` Object.
 
 A collection called `_mins` will be created in each database. If you plan to bombard your cluster
 with new paths, you may shard this collection on the existing index `p_1_l_1`.
 
+To use a `2dsphere` index, it is necessary not to compress the GeoJSON location information. To
+declare a path as uncompressed, use `Collection#setUncompressed`.
+```javascript
+mingydb.collection (
+    myDB,
+    myCollection,
+    aServer,
+    function (err, collection) {
+        collection.setUncompressed ('location', function (err) {
+            // done
+
+        });
+    }
+);
+```
+
 
 Documentation
 -------------
-Advanced documentation available [here.](https://shenanigans.github.io/node-mingydb/index.html)
+Full documentation available [here.](https://shenanigans.github.io/node-mingydb/index.html)
 
 For most purposes, you may refer to the documentation for the
 [standard driver](http://mongodb.github.io/node-mongodb-native/1.4/).

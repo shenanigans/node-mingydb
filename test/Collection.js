@@ -69,7 +69,7 @@ describe ("Collection", function(){
         db.open (function (err) {
             if (err) return done (err);
             async.each ([ 'test-mingydb', '_mins' ], function (dbname, callback) {
-                db.collection (dbname, function (err, col) {
+                db.collection (dbname, function doRemove (err, col) {
                     if (err) return callback (err);
                     col.remove ({}, { w:1 }, function (err) {
                         if (err) return callback (err);
@@ -80,10 +80,11 @@ describe ("Collection", function(){
                                 cursor.count (function (err, n) {
                                     if (err) return callback (err);
                                     if (n)
-                                        return cursor.toArray (function (err, recs) {
-                                            console.log (recs);
-                                            return callback (new Error ('failed to delete records'));
-                                        });
+                                        return doRemove (undefined, col);
+                                        // return cursor.toArray (function (err, recs) {
+                                        //     console.log (recs);
+                                        //     return callback (new Error ('failed to delete records'));
+                                        // });
 
                                     async.parallel ([
                                         function (callback) {
@@ -1559,37 +1560,14 @@ describe ("Collection", function(){
 
     describe ("#options", function(){
 
-        it ("always returns an explanatory Error", function (done) {
-            var sync = true;
-            testCollection.options (function (err, options) {
-                if (sync)
-                    return done (new Error (
-                        'callback fired synchronously'
-                    ));
-                if (options)
-                    return done (new Error (
-                        'returned an options object'
-                    ));
-                if (!err)
-                    return done (new Error (
-                        'did not return an Error'
-                    ));
-                if (err.message != 'the Node.js MongoDB driver does not support #options')
-                    return done (new Error (
-                        'did not return the correct Error'
-                    ));
-
-                done();
-            });
-            sync = false;
-        });
+        it ("figure out what this method does");
 
     });
 
     describe ("uncompressed subdocuments", function(){
 
         it ("deactivates compression for a path", function (done) {
-            testCollection.setDecompressed ('big', function (err) {
+            testCollection.setUncompressed ('big', function (err) {
                 if (err) return done (err);
                 var document = {
                     _id:    getNextID(),
@@ -1598,7 +1576,7 @@ describe ("Collection", function(){
                         fat:    {
                             this:       42,
                             that:       'forty-two',
-                            another:    'quatorze deuce or something'
+                            another:    'quarters-dooz'
                         }
                     }
                 };
@@ -1619,7 +1597,7 @@ describe ("Collection", function(){
                                         fat:    {
                                             this:       42,
                                             that:       'forty-two',
-                                            another:    'quatorze deuce or something'
+                                            another:    'quarters-dooz'
                                         }
                                     }
                                 ))
@@ -1646,17 +1624,360 @@ describe ("Collection", function(){
 
     });
 
+    var GeoRecs = [
+        {
+            location:       { type:"Point", coordinates:[ 10, 10 ] },
+            businessType:   "sci-fi convention"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -10, 10 ] },
+            businessType:   "sci-fi convention"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -10, -10 ] },
+            businessType:   "sci-fi convention"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 10, -10 ] },
+            businessType:   "sci-fi convention"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 9, 9 ] },
+            businessType:   "hamburger restaurant"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -9, 9 ] },
+            businessType:   "hamburger restaurant"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -9, -9 ] },
+            businessType:   "hamburger restaurant"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 9, -9 ] },
+            businessType:   "hamburger restaurant"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 7, 7 ] },
+            businessType:   "secret nuclear bunker"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -7, 7 ] },
+            businessType:   "secret nuclear bunker"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -7, -7 ] },
+            businessType:   "secret nuclear bunker"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 7, -7 ] },
+            businessType:   "secret nuclear bunker"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 4, 4 ] },
+            businessType:   "cell interceptor tower"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -4, 4 ] },
+            businessType:   "cell interceptor tower"
+        },
+        {
+            location:       { type:"Point", coordinates:[ -4, -4 ] },
+            businessType:   "cell interceptor tower"
+        },
+        {
+            location:       { type:"Point", coordinates:[ 4, -4 ] },
+            businessType:   "cell interceptor tower"
+        }
+    ]
+
     describe ("#geoNear", function(){
 
-        it ("finds documents located near a legacy point");
+        var geoTestCollection, rawGeoTestCollection;
+        var legacyGeoTestCollection, rawLegacyGeoTestCollection;
+        before (function (done) {
+            async.parallel ([
+                function (callback) {
+                    mingydb.collection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            geoTestCollection = col;
+                            geoTestCollection.remove ({}, { w:1 }, function (err) {
+                                if (err) return callback (err);
+                                geoTestCollection.setUncompressed ('location', function (err) {
+                                    if (err) return callback (err);
+                                    geoTestCollection.ensureIndex (
+                                        { location:'2dsphere' },
+                                        { w:1 },
+                                        function (err) {
+                                            if (err) return callback (err);
+                                            async.each (GeoRecs, function (rec, callback) {
+                                                geoTestCollection.insert (rec, { w:1 }, callback);
+                                            }, callback);
+                                        }
+                                    );
+                                });
+                            });
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.rawCollection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere-raw',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            rawGeoTestCollection = col;
+                            rawGeoTestCollection.remove ({}, { w:1 }, function (err) {
+                                rawGeoTestCollection.ensureIndex (
+                                    { location:'2dsphere' },
+                                    { w:1 },
+                                    function (err) {
+                                        if (err) return callback (err);
+                                        async.each (GeoRecs, function (rec, callback) {
+                                            rawGeoTestCollection.insert (rec, { w:1 }, callback);
+                                        }, callback);
+                                    }
+                                );
+                            });
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.collection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere-legacy',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            legacyGeoTestCollection = col;
+                            legacyGeoTestCollection.remove ({}, { w:1 }, function (err) {
+                                legacyGeoTestCollection.ensureIndex (
+                                    { location:'2dsphere' },
+                                    { w:1 },
+                                    function (err) {
+                                        if (err) return callback (err);
+                                        async.each (GeoRecs, function (rec, callback) {
+                                            legacyGeoTestCollection.insert (
+                                                { location:rec.location.coordinates },
+                                                { w:1 },
+                                                callback
+                                            );
+                                        }, callback);
+                                    }
+                                );
+                            });
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.rawCollection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere-raw-legacy',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            rawLegacyGeoTestCollection = col;
+                            rawLegacyGeoTestCollection.remove ({}, { w:1 }, function (err) {
+                                rawLegacyGeoTestCollection.ensureIndex (
+                                    { location:'2dsphere' },
+                                    { w:1 },
+                                    function (err) {
+                                        if (err) return callback (err);
+                                        async.each (GeoRecs, function (rec, callback) {
+                                            rawLegacyGeoTestCollection.insert (
+                                                { location:rec.location.coordinates },
+                                                { w:1 },
+                                                callback
+                                            );
+                                        }, callback);
+                                    }
+                                );
+                            });
+                        }
+                    );
+                }
+            ], done);
+        });
 
-        it ("finds documents located near a `2dsphere` point");
+        it ("finds records near a GeoJSON point", function (done) {
+
+            geoTestCollection.geoNear (
+                { type:"Point", coordinates:[ -5.5, 8.1 ] },
+                { limit:5, spherical:true },
+                function (err, recs) {
+                    if (err) return callback (err);
+                    if (recs.length != 5)
+                        return done (new Error ('retrieved wrong number of records'));
+                    for (var i in recs)
+                        if (!recs[i].dis || !recs[i].obj || !recs[i].obj.businessType)
+                            return done (new Error ('incorrectly formatted result'));
+                    done();
+                }
+            );
+
+        });
+
+        it ("finds records near a legacy point", function (done) {
+
+            geoTestCollection.geoNear (
+                -5.5,
+                8.1,
+                { limit:5, spherical:true },
+                function (err, recs) {
+                    if (err) return callback (err);
+                    if (recs.length != 5)
+                        return done (new Error ('retrieved wrong number of records'));
+                    for (var i in recs)
+                        if (!recs[i].dis || !recs[i].obj || !recs[i].obj.businessType)
+                            return done (new Error ('incorrectly formatted result'));
+                    done();
+                }
+            );
+
+        });
 
     });
 
     describe ("#geoHaystack", function(){
 
+        var geoTestCollection, rawGeoTestCollection;
+        var legacyGeoTestCollection, rawLegacyGeoTestCollection;
+        before (function (done) {
+            async.parallel ([
+                function (callback) {
+                    mingydb.collection (
+                        'test-mingydb',
+                        'test-mingydb-geo-haystack',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            geoTestCollection = col;
+                            geoTestCollection.setUncompressed ('location', function (err) {
+                                if (err) return callback (err);
+                                geoTestCollection.ensureIndex (
+                                    { location:'geoHaystack', businessType:1 },
+                                    { bucketSize:5, w:1 },
+                                    function (err) {
+                                        if (err) return callback (err);
+                                        async.each (GeoRecs, function (rec, callback) {
+                                            geoTestCollection.insert (rec, { w:1 }, callback);
+                                        }, callback);
+                                    }
+                                );
+                            });
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.rawCollection (
+                        'test-mingydb',
+                        'test-mingydb-geo-haystack-raw',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            rawGeoTestCollection = col;
+                            rawGeoTestCollection.ensureIndex (
+                                { location:'geoHaystack', businessType:1 },
+                                { bucketSize:5, w:1 },
+                                function (err) {
+                                    if (err) return callback (err);
+                                    async.each (GeoRecs, function (rec, callback) {
+                                        rawGeoTestCollection.insert (rec, { w:1 }, callback);
+                                    }, callback);
+                                }
+                            );
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.collection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere-legacy',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            legacyGeoTestCollection = col;
+                            legacyGeoTestCollection.ensureIndex (
+                                { location:'2dsphere' },
+                                { w:1 },
+                                function (err) {
+                                    if (err) return callback (err);
+                                    async.each (GeoRecs, function (rec, callback) {
+                                        legacyGeoTestCollection.insert (
+                                            { location:rec.location.coordinates },
+                                            { w:1 },
+                                            callback
+                                        );
+                                    }, callback);
+                                }
+                            );
+                        }
+                    );
+                },
+                function (callback) {
+                    mingydb.rawCollection (
+                        'test-mingydb',
+                        'test-mingydb-geo-sphere-raw-legacy',
+                        new mingydb.Server ('127.0.0.1', 27017),
+                        function (err, col) {
+                            if (err) return callback (err);
+                            rawLegacyGeoTestCollection = col;
+                            rawLegacyGeoTestCollection.ensureIndex (
+                                { location:'2dsphere' },
+                                { w:1 },
+                                function (err) {
+                                    if (err) return callback (err);
+                                    async.each (GeoRecs, function (rec, callback) {
+                                        rawLegacyGeoTestCollection.insert (
+                                            { location:rec.location.coordinates },
+                                            { w:1 },
+                                            callback
+                                        );
+                                    }, callback);
+                                }
+                            );
+                        }
+                    );
+                }
+            ], done);
+        });
 
+        it ("finds GeoJSON records near a point", function (done) {
+
+            var testRecs, goalRecs;
+            async.parallel ([
+                function (callback) {
+                    geoTestCollection.geoHaystack (-5.5, 8.1, { limit:5 }, function (err, recs) {
+                        if (err) return callback (err);
+                        testRecs = recs;
+                        callback();
+                    });
+                },
+                function (callback) {
+                    rawGeoTestCollection.geoHaystack (-5.5, 8.1, { limit:5 }, function (err, recs) {
+                        if (err) return callback (err);
+                        goalRecs = recs;
+                        callback();
+                    });
+                }
+            ], function (err) {
+                if (err) return done (err);
+                console.log (testRecs);
+                console.log (goalRecs);
+                if (testRecs.length != goalRecs.length)
+                    return done (new Error ('did not retrieve the correct number of records'));
+                for (var i in testRecs)
+                    if (!matchLeaves (testRecs[i], goalRecs[i]))
+                        return done (new Error ('retrieved records did not match'));
+                done();
+            });
+
+        });
 
     });
 
