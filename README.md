@@ -31,12 +31,14 @@ The api differs in a few ways:
  * The `$where` operator will fail.
  * MapReduce is not supported. Use aggregation.
  * `Collection#find` and `Collection#findOne` have no `skip`, `limit`, or `timeout` arguments. When three arguments are provided, the second is **always** assumed to be a projection, **never** an `options` Object.
+ * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
+ * `geoHaystackSearch` returns a simple Array of records.
 
 A collection called `_mins` will be created in each database. If you plan to bombard your cluster
 with new paths, you may shard this collection on the existing index `p_1_l_1`.
 
-To use a `2dsphere` index, it is necessary not to compress the GeoJSON location information. To
-declare a path as uncompressed, use `Collection#setUncompressed`.
+To use a geospatial index with GeoJSON or legacy pairs with named fields, it is necessary to mark
+part of the document as uncompressed. To do this, use `Collection#setUncompressed`.
 ```javascript
 mingydb.collection (
     myDB,
