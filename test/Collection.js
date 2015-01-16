@@ -1693,115 +1693,33 @@ describe ("Collection", function(){
 
     describe ("#geoNear", function(){
 
-        var geoTestCollection, rawGeoTestCollection;
-        var legacyGeoTestCollection, rawLegacyGeoTestCollection;
+        var geoTestCollection;
         before (function (done) {
-            async.parallel ([
-                function (callback) {
-                    mingydb.collection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-geo-sphere',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, col) {
+                    if (err) return callback (err);
+                    geoTestCollection = col;
+                    geoTestCollection.remove ({}, { w:1 }, function (err) {
+                        if (err) return callback (err);
+                        geoTestCollection.setUncompressed ('location', function (err) {
                             if (err) return callback (err);
-                            geoTestCollection = col;
-                            geoTestCollection.remove ({}, { w:1 }, function (err) {
-                                if (err) return callback (err);
-                                geoTestCollection.setUncompressed ('location', function (err) {
+                            geoTestCollection.ensureIndex (
+                                { location:'2dsphere' },
+                                { w:1 },
+                                function (err) {
                                     if (err) return callback (err);
-                                    geoTestCollection.ensureIndex (
-                                        { location:'2dsphere' },
-                                        { w:1 },
-                                        function (err) {
-                                            if (err) return callback (err);
-                                            async.each (GeoRecs, function (rec, callback) {
-                                                geoTestCollection.insert (rec, { w:1 }, callback);
-                                            }, callback);
-                                        }
-                                    );
-                                });
-                            });
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.rawCollection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere-raw',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            rawGeoTestCollection = col;
-                            rawGeoTestCollection.remove ({}, { w:1 }, function (err) {
-                                rawGeoTestCollection.ensureIndex (
-                                    { location:'2dsphere' },
-                                    { w:1 },
-                                    function (err) {
-                                        if (err) return callback (err);
-                                        async.each (GeoRecs, function (rec, callback) {
-                                            rawGeoTestCollection.insert (rec, { w:1 }, callback);
-                                        }, callback);
-                                    }
-                                );
-                            });
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.collection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere-legacy',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            legacyGeoTestCollection = col;
-                            legacyGeoTestCollection.remove ({}, { w:1 }, function (err) {
-                                legacyGeoTestCollection.ensureIndex (
-                                    { location:'2dsphere' },
-                                    { w:1 },
-                                    function (err) {
-                                        if (err) return callback (err);
-                                        async.each (GeoRecs, function (rec, callback) {
-                                            legacyGeoTestCollection.insert (
-                                                { location:rec.location.coordinates },
-                                                { w:1 },
-                                                callback
-                                            );
-                                        }, callback);
-                                    }
-                                );
-                            });
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.rawCollection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere-raw-legacy',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            rawLegacyGeoTestCollection = col;
-                            rawLegacyGeoTestCollection.remove ({}, { w:1 }, function (err) {
-                                rawLegacyGeoTestCollection.ensureIndex (
-                                    { location:'2dsphere' },
-                                    { w:1 },
-                                    function (err) {
-                                        if (err) return callback (err);
-                                        async.each (GeoRecs, function (rec, callback) {
-                                            rawLegacyGeoTestCollection.insert (
-                                                { location:rec.location.coordinates },
-                                                { w:1 },
-                                                callback
-                                            );
-                                        }, callback);
-                                    }
-                                );
-                            });
-                        }
-                    );
+                                    async.each (GeoRecs, function (rec, callback) {
+                                        geoTestCollection.insert (rec, { w:1 }, callback);
+                                    }, done);
+                                }
+                            );
+                        });
+                    });
                 }
-            ], done);
+            );
         });
 
         it ("finds records near a GeoJSON point", function (done) {
@@ -1845,137 +1763,58 @@ describe ("Collection", function(){
 
     describe ("#geoHaystack", function(){
 
-        var geoTestCollection, rawGeoTestCollection;
-        var legacyGeoTestCollection, rawLegacyGeoTestCollection;
+        var geoTestCollection;
         before (function (done) {
-            async.parallel ([
-                function (callback) {
-                    mingydb.collection (
-                        'test-mingydb',
-                        'test-mingydb-geo-haystack',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-geo-haystack',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, col) {
+                    if (err) return callback (err);
+                    geoTestCollection = col;
+                    geoTestCollection.remove ({}, { w:1 }, function (err) {
+                        if (err) return done (err);
+                        geoTestCollection.setUncompressed ('location', function (err) {
                             if (err) return callback (err);
-                            geoTestCollection = col;
-                            geoTestCollection.setUncompressed ('location', function (err) {
-                                if (err) return callback (err);
-                                geoTestCollection.ensureIndex (
-                                    { location:'geoHaystack', businessType:1 },
-                                    { bucketSize:5, w:1 },
-                                    function (err) {
-                                        if (err) return callback (err);
-                                        async.each (GeoRecs, function (rec, callback) {
-                                            geoTestCollection.insert (rec, { w:1 }, callback);
-                                        }, callback);
-                                    }
-                                );
-                            });
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.rawCollection (
-                        'test-mingydb',
-                        'test-mingydb-geo-haystack-raw',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            rawGeoTestCollection = col;
-                            rawGeoTestCollection.ensureIndex (
+                            geoTestCollection.ensureIndex (
                                 { location:'geoHaystack', businessType:1 },
                                 { bucketSize:5, w:1 },
                                 function (err) {
                                     if (err) return callback (err);
                                     async.each (GeoRecs, function (rec, callback) {
-                                        rawGeoTestCollection.insert (rec, { w:1 }, callback);
-                                    }, callback);
-                                }
-                            );
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.collection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere-legacy',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            legacyGeoTestCollection = col;
-                            legacyGeoTestCollection.ensureIndex (
-                                { location:'2dsphere' },
-                                { w:1 },
-                                function (err) {
-                                    if (err) return callback (err);
-                                    async.each (GeoRecs, function (rec, callback) {
-                                        legacyGeoTestCollection.insert (
-                                            { location:rec.location.coordinates },
+                                        geoTestCollection.insert (
+                                            {
+                                                location:       rec.location.coordinates,
+                                                businessType:   rec.businessType
+                                            },
                                             { w:1 },
                                             callback
                                         );
-                                    }, callback);
+                                    }, done);
                                 }
                             );
-                        }
-                    );
-                },
-                function (callback) {
-                    mingydb.rawCollection (
-                        'test-mingydb',
-                        'test-mingydb-geo-sphere-raw-legacy',
-                        new mingydb.Server ('127.0.0.1', 27017),
-                        function (err, col) {
-                            if (err) return callback (err);
-                            rawLegacyGeoTestCollection = col;
-                            rawLegacyGeoTestCollection.ensureIndex (
-                                { location:'2dsphere' },
-                                { w:1 },
-                                function (err) {
-                                    if (err) return callback (err);
-                                    async.each (GeoRecs, function (rec, callback) {
-                                        rawLegacyGeoTestCollection.insert (
-                                            { location:rec.location.coordinates },
-                                            { w:1 },
-                                            callback
-                                        );
-                                    }, callback);
-                                }
-                            );
-                        }
-                    );
+                        });
+                    });
                 }
-            ], done);
+            );
         });
 
         it ("finds GeoJSON records near a point", function (done) {
 
-            var testRecs, goalRecs;
-            async.parallel ([
-                function (callback) {
-                    geoTestCollection.geoHaystack (-5.5, 8.1, { limit:5 }, function (err, recs) {
-                        if (err) return callback (err);
-                        testRecs = recs;
-                        callback();
-                    });
-                },
-                function (callback) {
-                    rawGeoTestCollection.geoHaystack (-5.5, 8.1, { limit:5 }, function (err, recs) {
-                        if (err) return callback (err);
-                        goalRecs = recs;
-                        callback();
-                    });
+            geoTestCollection.geoHaystackSearch (
+                -5.5,
+                8.1,
+                { limit:3, maxDistance:50, search:{ businessType:'secret nuclear bunker' } },
+                function (err, recs) {
+                    if (err) return done (err);
+                    if (recs.length != 3)
+                        return done (new Error ('retrieved wrong number of records'));
+                    for (var i in recs)
+                        if (!recs[i].location || recs[i].businessType != 'secret nuclear bunker')
+                            return done (new Error ('retrieved document was damaged or incorrect'));
+                    done();
                 }
-            ], function (err) {
-                if (err) return done (err);
-                console.log (testRecs);
-                console.log (goalRecs);
-                if (testRecs.length != goalRecs.length)
-                    return done (new Error ('did not retrieve the correct number of records'));
-                for (var i in testRecs)
-                    if (!matchLeaves (testRecs[i], goalRecs[i]))
-                        return done (new Error ('retrieved records did not match'));
-                done();
-            });
+            );
 
         });
 
