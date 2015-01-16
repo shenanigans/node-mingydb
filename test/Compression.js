@@ -13,10 +13,10 @@ describe ("compression", function(){
         var db = new mongodb.Db ('test-mingydb', new mongodb.Server ('127.0.0.1', 27017), { w:1 });
         db.open (function (err) {
             if (err) return done (err);
-            async.each ([ 'test-mingydb', 'mins' ], function (dbname, callback) {
+            async.each ([ 'test-mingydb', '_mins' ], function (dbname, callback) {
                 db.collection (dbname, function (err, col) {
                     if (err) return callback (err);
-                    col.remove ({}, { w:1, flush:true }, function (err) {
+                    col.remove ({}, { w:1 }, function (err) {
                         if (err) return callback (err);
                         col.dropAllIndexes (function (err) {
                             if (err && err.message != 'ns not found') return callback (err);
@@ -25,11 +25,11 @@ describe ("compression", function(){
                                 cursor.count (function (err, n) {
                                     if (err) return callback (err);
                                     if (n)
-                                        return callback (new Error (
-                                            'failed to delete records before test (found '
-                                          + n
-                                          + ' records)'
-                                        ));
+                                        return cursor.toArray (function (err, recs) {
+                                            console.log (recs);
+                                            callback (new Error ('failed to delete records'));
+                                        });
+
                                     async.parallel ([
                                         function (callback) {
                                             mingydb.collection (
@@ -279,4 +279,5 @@ describe ("compression", function(){
             done();
         });
     });
+
 });

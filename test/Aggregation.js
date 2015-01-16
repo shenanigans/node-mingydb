@@ -190,30 +190,30 @@ describe ("Aggregation", function(){
 
     describe ("#aggregate", function(){
 
-        // describe ("$match", function(){
+        describe ("$match", function(){
 
-        //     it ("selectively passes documents with a query", function (done) {
-        //         testAggregation ([
-        //             { able:9, baker:1 },
-        //             { able:8, baker:2 },
-        //             { able:7, baker:3 },
-        //             { able:6, baker:4 },
-        //             { able:5, baker:5 },
-        //             { able:4, baker:6 },
-        //             { able:3, baker:7 },
-        //             { able:2, baker:8 },
-        //             { able:1, baker:9 }
-        //         ], [
-        //             {
-        //                 $match:     {
-        //                     able:   { $gt:2 },
-        //                     baker:  { $gt:2 }
-        //                 }
-        //             }
-        //         ], done);
-        //     });
+            it ("selectively passes documents with a query", function (done) {
+                testAggregation ([
+                    { able:9, baker:1 },
+                    { able:8, baker:2 },
+                    { able:7, baker:3 },
+                    { able:6, baker:4 },
+                    { able:5, baker:5 },
+                    { able:4, baker:6 },
+                    { able:3, baker:7 },
+                    { able:2, baker:8 },
+                    { able:1, baker:9 }
+                ], [
+                    {
+                        $match:     {
+                            able:   { $gt:2 },
+                            baker:  { $gt:2 }
+                        }
+                    }
+                ], done);
+            });
 
-        // });
+        });
 
         describe ("$project", function(){
 
@@ -278,6 +278,10 @@ describe ("Aggregation", function(){
                     }}
                 ], done);
             });
+
+            it ("projects subdocuments from one uncompressed path to another");
+
+            it ("projects subdocuments into an alias path");
 
         });
 
@@ -601,6 +605,10 @@ describe ("Aggregation", function(){
 
                 });
 
+                it ("groups subdocuments from one uncompressed path to another");
+
+                it ("groups subdocuments into an alias path");
+
             });
 
         });
@@ -812,11 +820,11 @@ describe ("Aggregation", function(){
                 );
             });
 
-            it ("outputs to another compressed collection with $project", function (done) {
+            it ("outputs to another compressed collection with $project (dots)", function (done) {
                 var testDoc;
                 collection.insert (
                     testDoc = {
-                        test:   'namespace/project',
+                        test:   'namespace/project01',
                         fox:    {
                             george: {
                                 hotel:  9001
@@ -832,7 +840,7 @@ describe ("Aggregation", function(){
                     function (err) {
                         if (err) return done (err);
                         collection.aggregate ([
-                            { $match:{ test:'namespace/project' } },
+                            { $match:{ test:'namespace/project01' } },
                             { $project:{
                                 _id:                '$hotel',
                                 test:               '$test',
@@ -849,7 +857,7 @@ describe ("Aggregation", function(){
                                 function (err, outputCollection) {
                                     if (err) return done (err);
                                     outputCollection.findOne (
-                                        { test:'namespace/project'},
+                                        { test:'namespace/project01'},
                                         function (err, rec) {
                                             if (err) return done (err);
                                             if (!rec) return done (new Error (
@@ -858,7 +866,70 @@ describe ("Aggregation", function(){
 
                                             if (!matchLeaves (rec, {
                                                 _id:    9004,
-                                                test:   'namespace/project',
+                                                test:   'namespace/project01',
+                                                fox:{ george:{ hotel:9001 } },
+                                                bar:    9003
+                                            })) {
+                                                return done (new Error ('retrieved document was incorrect'));
+                                            }
+
+                                            done();
+                                        }
+                                    );
+                                }
+                            );
+                        });
+                    }
+                );
+            });
+
+            it ("outputs to another compressed collection with $project (dots)", function (done) {
+                var testDoc;
+                collection.insert (
+                    testDoc = {
+                        test:   'namespace/project02',
+                        fox:    {
+                            george: {
+                                hotel:  9001
+                            },
+                            hotel:  9002
+                        },
+                        george: {
+                            hotel:  9003
+                        },
+                        hotel:  9004
+                    },
+                    { w:1 },
+                    function (err) {
+                        if (err) return done (err);
+                        collection.aggregate ([
+                            { $match:{ test:'namespace/project02' } },
+                            { $project:{
+                                _id:    '$hotel',
+                                test:   '$test',
+                                fox:    { george:{ hotel:'$fox.george.hotel' } },
+                                bar:    '$george.hotel'
+                            } },
+                            { $out:'test-mingydb-aggregation' }
+                        ], function (err, recs) {
+                            if (err) return done (err);
+                            mingydb.collection (
+                                'test-mingydb',
+                                'test-mingydb-aggregation',
+                                new mingydb.Server ('127.0.0.1', 27017),
+                                function (err, outputCollection) {
+                                    if (err) return done (err);
+                                    outputCollection.findOne (
+                                        { test:'namespace/project02'},
+                                        function (err, rec) {
+                                            if (err) return done (err);
+                                            if (!rec) return done (new Error (
+                                                'unable to retrieve output record'
+                                            ));
+
+                                            if (!matchLeaves (rec, {
+                                                _id:    9004,
+                                                test:   'namespace/project02',
                                                 fox:{ george:{ hotel:9001 } },
                                                 bar:    9003
                                             })) {

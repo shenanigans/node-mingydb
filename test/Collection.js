@@ -68,10 +68,10 @@ describe ("Collection", function(){
         var db = new mongodb.Db ('test-mingydb', new mongodb.Server ('127.0.0.1', 27017), { w:1 });
         db.open (function (err) {
             if (err) return done (err);
-            async.each ([ 'test-mingydb', 'mins' ], function (dbname, callback) {
+            async.each ([ 'test-mingydb', '_mins' ], function (dbname, callback) {
                 db.collection (dbname, function (err, col) {
                     if (err) return callback (err);
-                    col.remove ({}, { w:1, flush:true }, function (err) {
+                    col.remove ({}, { w:1 }, function (err) {
                         if (err) return callback (err);
                         col.dropAllIndexes (function (err) {
                             if (err && err.message != 'ns not found') return callback (err);
@@ -80,11 +80,11 @@ describe ("Collection", function(){
                                 cursor.count (function (err, n) {
                                     if (err) return callback (err);
                                     if (n)
-                                        return callback (new Error (
-                                            'failed to delete records before test (found '
-                                          + n
-                                          + ' records)'
-                                        ));
+                                        return cursor.toArray (function (err, recs) {
+                                            console.log (recs);
+                                            return callback (new Error ('failed to delete records'));
+                                        });
+
                                     async.parallel ([
                                         function (callback) {
                                             mingydb.collection (
@@ -1320,30 +1320,34 @@ describe ("Collection", function(){
                 }, { w:1 }, callback);
             }, function (err) {
                 if (err) return done (err);
-                testCollection.remove ({ removalKey:{ $gte:2, $lte:4 } }, { w:1 }, function (err) {
-                    if (err) return done (err);
-                    testCollection.find ({ test:'remove' }, function (err, cursor) {
+                testCollection.remove (
+                    { removalKey:{ $gte:2, $lte:4 } },
+                    { w:1, fsync:true },
+                    function (err) {
                         if (err) return done (err);
-                        cursor.toArray (function (err, recs) {
+                        testCollection.find ({ test:'remove' }, function (err, cursor) {
                             if (err) return done (err);
-                            if (!recs)
-                                return done (new Error ('removed everything!'));
-                            if (recs.length != 5)
-                                return done (new Error ('removed wrong number of documents'));
+                            cursor.toArray (function (err, recs) {
+                                if (err) return done (err);
+                                if (!recs)
+                                    return done (new Error ('removed everything!'));
+                                if (recs.length != 5)
+                                    return done (new Error ('removed wrong number of documents'));
 
-                            for (var i in recs) {
-                                var rec = recs[i];
-                                if (
-                                    !Object.hasOwnProperty.call (rec, 'removalKey')
-                                 || ( rec.removalKey >= 2 && rec.removalKey <= 4 )
-                                )
-                                    return done (new Error ('removed wrong documents'));
-                            }
+                                for (var i in recs) {
+                                    var rec = recs[i];
+                                    if (
+                                        !Object.hasOwnProperty.call (rec, 'removalKey')
+                                     || ( rec.removalKey >= 2 && rec.removalKey <= 4 )
+                                    )
+                                        return done (new Error ('removed wrong documents'));
+                                }
 
-                            done()
+                                done()
+                            });
                         });
-                    });
-                });
+                    }
+                );
             });
         });
 
@@ -1579,6 +1583,67 @@ describe ("Collection", function(){
             });
             sync = false;
         });
+
+    });
+
+    describe ("uncompressed subdocuments", function(){
+
+        it ("deactivates compression for a path", function (done) {
+            testCollection.setDecompressed ('big.fat', function (err) {
+                if (err) return done (err);
+                var document = {
+                    _id:    getNextID(),
+                    test:   'uncompressed',
+                    big:    {
+                        fat:    {
+                            this:       42,
+                            that:       'forty-two',
+                            another:    'quatorze deuce or something'
+                        }
+                    }
+                };
+                testCollection.insert (document, { w:1 }, function (err) {
+                    if (err) return done (err);
+                    testCollection.findOne ({ test:'uncompressed' }, function (err, rec) {
+                        if (err) return done (err);
+                        if (!rec) return done (new Error ('failed to retrieve test record'));
+                        if (!matchLeaves (rec, document))
+                            return done (new Error ('retrieved test document did not match'));
+                        rawTestCollection.findOne ({ _id:document._id }, function (err, rec) {
+                            if (err) return done (err);
+                            if (!rec) return done (new Error (
+                                'raw collection cannot confirm test record'
+                            ));
+                            for (var key in rec)
+                                if (matchLeaves (rec[key], {
+                                        fat:    {
+                                            this:       42,
+                                            that:       'forty-two',
+                                            another:    'quatorze deuce or something'
+                                        }
+                                    }
+                                ))
+                                    return done();
+
+                            console.log (rec);
+                            return done (new Error ('subdocument was damaged or compressed'));
+                        });
+                    });
+                });
+            });
+        });
+
+        it ("reactivates compression for a path");
+
+    });
+
+    describe ("namespace aliases", function(){
+
+        it ("creates an alias from one path to another");
+
+        it ("creates an alias to another namespace root");
+
+        it ("creates an alias to a path on another namespace");
 
     });
 

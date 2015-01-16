@@ -4,6 +4,9 @@ Drop-in automagic compressing driver for [MongoDB](http://www.mongodb.org/). All
 update, index, administrate, aggregate and otherwise perturb a MongoDB instance in an optimally
 minified fashion without sacrificing legibility, sanity, or goats.
 
+`mingydb` is early software. It has respectable test coverage but has yet to undergo significant
+testing in the wild.
+
 
 Installation
 ------------
@@ -14,18 +17,62 @@ $ npm install mingydb
 
 Using MingyDB
 -------------
-`mingydb` is almost identical to the [standard driver] `mongodb`. It is highly likely that switching
-to `mingydb` will be about this easy:
+`mingydb` is almost identical to the
+[standard driver](http://mongodb.github.io/node-mongodb-native/1.4/) `mongodb`.
+
 ```javascript
 // var mongodb = require ('mongodb');
 var mongodb = require ('mingydb');
 ```
 
-For more information, consult the
-[standard driver docs](http://mongodb.github.io/node-mongodb-native/1.4/).
+The following caveats apply:
+ * The `save` method is not supported.
+ * Nothing officially deprecated is supported.
+ * The `$where` operator will fail.
+ * MapReduce is not supported. Use aggregation.
+ * When aggregating, special care must be taken when transplanting subdocuments into a new path.
+ * `Collection#find` and `Collection#findOne` have no `skip`, `limit`, or `timeout` arguments. You must put them in `options`. When three arguments are provided, the second is **always** assumed to be a projection, **never** an `options` Object.
+ * The standard driver's method `Collection#options` is not supported, because I can't find any documentation on it or get it to work. If anyone uses this, please enlighten me.
+
+A collection called `_mins` will be created in each database. If you plan to bombard your cluster
+with new paths, you may shard this collection on the existing index `p_1_l_1`.
+
+
+Documentation
+-------------
+Advanced documentation available [here.](https://shenanigans.github.io/node-mingydb/index.html)
+
+For most purposes, you may refer to the documentation for the
+[standard driver](http://mongodb.github.io/node-mongodb-native/1.4/).
 
 
 Development
 -----------
 `mingydb` is developed and maintained by Kevin "Schmidty" Smith under the MIT license. If you want to
 see continued development, please help me [pay my bills!](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PN6C2AZTS2FP8&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
+
+
+LICENSE
+-------
+The MIT License (MIT)
+
+Copyright (c) 2014 Kevin "Schmidty" Smith
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
