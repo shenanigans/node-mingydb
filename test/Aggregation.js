@@ -84,27 +84,8 @@ function testAggregation (documents, pipeline, callback, arraysAsSets) {
             async.parallel ([
                 function (callback) {
                     var pipeCheck = JSON.stringify (pipeline);
-                    collection.aggregate (pipeline, function (aggErr, recs) {
-                        if (aggErr) {
-                            return collection.find ({}, function (err, cursor) {
-                                if (err) return callback (err);
-                                cursor.toArray (function (err, recs) {
-                                    if (err) return callback (err);
-                                    console.log (recs);
-                                    rawCollection.find ({}, function (err, cursor) {
-                                        if (err) return callback (err);
-                                        cursor.toArray (function (err, recs) {
-                                            if (err) return callback (err);
-                                            console.log (JSON.stringify (recs));
-                                            collection.aggregate (pipeline, function (err, recs) {
-                                                console.log (err, recs);
-                                                callback (aggErr);
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        }
+                    collection.aggregate (pipeline, function (err, recs) {
+                        if (err) return callback (err);
 
                         if (JSON.stringify (pipeline) != pipeCheck)
                             return callback (new Error (
@@ -771,7 +752,7 @@ describe ("Aggregation", function(){
                 var testDoc;
                 collection.insert (
                     testDoc = {
-                        test:   'namespace',
+                        test:   'namespace/group',
                         fox:    {
                             george: {
                                 hotel:  9001
@@ -787,27 +768,108 @@ describe ("Aggregation", function(){
                     function (err) {
                         if (err) return done (err);
                         collection.aggregate ([
-                            { $match:{ test:'namespace' } },
+                            { $match:{ test:'namespace/group' } },
                             { $group:{
-                                foo:        '$fox.george.hotel',
-                                'bar.baz':  '$george.hotel',
-                                bunkus:     '$hotel'
+                                _id:        '$hotel',
+                                test:       { $first:'$test' },
+                                foo:        { $sum:'$fox.george.hotel' },
+                                bar:        { $sum:'$george.hotel' }
                             } },
                             { $out:'test-mingydb-aggregation' }
                         ], function (err, recs) {
                             if (err) return done (err);
-                            if (!recs || recs.length != 1)
-                                return done (new Error ('retrieved wrong number of documents'));
-                            if (!matchLeaves (recs[0], {
-                                foo:    9001,
-                                bar:    {
-                                    baz:    9003
-                                },
-                                bunkus: 9004
-                            })) {
-                                console.log (recs[0]);
-                                return done (new Error ('retrieved document was incorrect'));
-                            }
+                            mingydb.collection (
+                                'test-mingydb',
+                                'test-mingydb-aggregation',
+                                new mingydb.Server ('127.0.0.1', 27017),
+                                function (err, outputCollection) {
+                                    if (err) return done (err);
+                                    outputCollection.findOne (
+                                        { test:'namespace/group'},
+                                        function (err, rec) {
+                                            if (err) return done (err);
+                                            if (!rec) return done (new Error (
+                                                'unable to retrieve output record'
+                                            ));
+
+                                            if (!matchLeaves (rec, {
+                                                _id:    9004,
+                                                test:   'namespace/group',
+                                                foo:    9001,
+                                                bar:    9003
+                                            })) {
+                                                console.log (rec);
+                                                return done (new Error ('retrieved document was incorrect'));
+                                            }
+
+                                            done();
+                                        }
+                                    );
+                                }
+                            );
+                        });
+                    }
+                );
+            });
+
+            it ("outputs to another compressed collection with $project", function (done) {
+                var testDoc;
+                collection.insert (
+                    testDoc = {
+                        test:   'namespace/project',
+                        fox:    {
+                            george: {
+                                hotel:  9001
+                            },
+                            hotel:  9002
+                        },
+                        george: {
+                            hotel:  9003
+                        },
+                        hotel:  9004
+                    },
+                    { w:1 },
+                    function (err) {
+                        if (err) return done (err);
+                        collection.aggregate ([
+                            { $match:{ test:'namespace/project' } },
+                            { $project:{
+                                _id:                '$hotel',
+                                test:               '$test',
+                                'fox.george.hotel': '$fox.george.hotel',
+                                bar:                '$george.hotel'
+                            } },
+                            { $out:'test-mingydb-aggregation' }
+                        ], function (err, recs) {
+                            if (err) return done (err);
+                            mingydb.collection (
+                                'test-mingydb',
+                                'test-mingydb-aggregation',
+                                new mingydb.Server ('127.0.0.1', 27017),
+                                function (err, outputCollection) {
+                                    if (err) return done (err);
+                                    outputCollection.findOne (
+                                        { test:'namespace/project'},
+                                        function (err, rec) {
+                                            if (err) return done (err);
+                                            if (!rec) return done (new Error (
+                                                'unable to retrieve output record'
+                                            ));
+
+                                            if (!matchLeaves (rec, {
+                                                _id:    9004,
+                                                test:   'namespace/project',
+                                                fox:{ george:{ hotel:9001 } },
+                                                bar:    9003
+                                            })) {
+                                                return done (new Error ('retrieved document was incorrect'));
+                                            }
+
+                                            done();
+                                        }
+                                    );
+                                }
+                            );
                         });
                     }
                 );
