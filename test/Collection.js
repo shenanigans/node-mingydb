@@ -1589,7 +1589,7 @@ describe ("Collection", function(){
     describe ("uncompressed subdocuments", function(){
 
         it ("deactivates compression for a path", function (done) {
-            testCollection.setDecompressed ('big.fat', function (err) {
+            testCollection.setDecompressed ('big', function (err) {
                 if (err) return done (err);
                 var document = {
                     _id:    getNextID(),
@@ -1625,7 +1625,6 @@ describe ("Collection", function(){
                                 ))
                                     return done();
 
-                            console.log (rec);
                             return done (new Error ('subdocument was damaged or compressed'));
                         });
                     });
