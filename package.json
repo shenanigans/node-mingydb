@@ -1,7 +1,7 @@
 {
   "name": "mingydb",
   "main": "main.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Drop-in automagic compressing driver for MongoDB",
   "keywords": [
     "mongodb",
