@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.cachew.DocumentChainCache documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="module" id="component_1566">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">module</a>
+            <span>
+                <a class="valtype" href="javascript:return false;">class</a>
+                
+                <span class="valsep">|</span>
+            </span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb property">cachew</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb module">DocumentChainCache</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#functions">Static Functions</a></h4>
+                <a href="#component_1527">reap</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#methods">Instance Methods</a></h4>
+                <a href="#component_1554">drop</a><br />
+                <a href="#component_1548">get</a><br />
+                <a href="#component_1539">set</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>Simple, lightweight, efficient cache for large numbers of keys which expire on a uniform TTL but
+may be renewed frequently. This cache type uses a double-linked-list structure. A single timer
+is used and no events are provided.</p>
+</div>
+                <div class="clear"></div>
+                <!-- constructor function -->
+                <h1>Constructor</h1>
+                <div id="constructor" class="section constructor">
+                    <h2 class="signature">
+                        DocumentChainCache (
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="title" href="#component_1557">
+            duration
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="title" href="#component_1560">
+            max
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Boolean</a>
+            
+        </span>
+        <a class="title" href="#component_1563">
+            keepalive
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+                        ) {
+                    </h2>
+                    <div class="markdown"></div>
+                        <h3>Arguments</h3>
+                        <div class="section arguments">
+                                <div class="child argument" id="component_1557">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="argument/duration/index.html">
+            duration
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_1560">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="argument/max/index.html">
+            max
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_1563">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Boolean</a>
+            
+        </span>
+        <a class="name" href="argument/keepalive/index.html">
+            keepalive
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"><p>Calling <code>get</code> resets the timer on a key by default.</p>
+</span>
+                                    <div class="tail"></div></div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<div class="children">
+        <!-- static functions -->
+        <h1 id="functions" class="header">Static Functions</h1>
+        <div class="section properties">
+<div id="component_1527" class="child function">
+    <span class="signature">
+            <div class="flag private">private</div>
+        <a href="property/reap/index.html" class="title">
+            reap
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1521">
+            target
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1524">
+            time
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Set a timeout to cull the oldest record from a DocumentChainCache instance and recurse. When the timer
+trips, it will double-check that the oldest record is actually expired before culling it.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1521">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="index.html">cachew.DocumentChainCache</a>
+            
+        </span>
+        <a class="name" href="property/reap/argument/target/index.html">
+            target
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1524">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="property/reap/argument/time/index.html">
+            time
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>Milliseconds until the culling operation should occur.</p>
+</span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+        <!-- instance methods -->
+        <h1 id="methods" class="header">Instance Methods</h1>
+        <div class="section members">
+<div id="component_1554" class="child function">
+    <span class="signature">
+        <a href="member/drop/index.html" class="title">
+            drop
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1551">
+            key
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1551">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/drop/argument/key/index.html">
+            key
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>@returns Object|undefined
+    The value associated with the dropped key, or <code>undefined</code>.</p>
+</span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1548" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/get/index.html" class="title">
+            get
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1542">
+            key
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1542">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/get/argument/key/index.html">
+            key
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1545" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/get/returns/Object/index.html">Object</a>
+    </span>
+    <div class="info">
+<span class="markdown"><p>The value stored for <code>key</code>, or <code>undefined</code> if <code>key</code> was never set or has expired.</p>
+</span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1539" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/set/index.html" class="title">
+            set
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1530">
+            doc
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1530">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/set/argument/doc/index.html">
+            doc
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1536" class="child member">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/set/returns/cachew/member/DocumentChainCache/index.html">DocumentChainCache</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

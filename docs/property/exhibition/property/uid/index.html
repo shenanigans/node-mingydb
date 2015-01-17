@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.exhibition.uid documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="module" id="component_1707">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">module</a>
+            <span></span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb property">exhibition</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb module">uid</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#functions">Static Functions</a></h4>
+                <a href="#component_1692">craft</a><br />
+                <a href="#component_1701">craftTemporary</a><br />
+                <a href="#component_1704">parse</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>Generates, parses and examines unique identifiers. An <strong>infosex</strong> id is a 28-character base64
+string representing a random hash, a randomly-seeded sequential count byte, a timestamp, and a
+state flag indicating whether an id is &quot;temporary&quot;. In Model applications, &quot;temporary&quot;
+<strong>infosex</strong> ids are used to indicate that a resource is newly created and does not exist on the
+server yet.</p>
+<p><strong>infosex</strong> ids are cryptographically strong to 88 bits in the high-order portion. They are
+never sequential. They are not guaranteed to be unique across multiple processes and machines,
+however, there is only a 1 nanosecond window in which a physical processor can generate a
+colliding key. There is a 1ms window in which multiple machines may produce colliding keys,
+with a probability of one against two to the ninety sixth power per attempt.</p>
+</div>
+                <div class="clear"></div>
+        </div>
+<div class="children">
+        <!-- static functions -->
+        <h1 id="functions" class="header">Static Functions</h1>
+        <div class="section properties">
+<div id="component_1692" class="child function">
+    <span class="signature">
+        <a href="property/craft/index.html" class="title">
+            craft
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1689">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Create a new UID string.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_1689">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/craft/argument/unnamed_84/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_1686">
+            id
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1686">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">String</a>
+                                                        </span>
+                                                        <a class="title" href="property/craft/argument/unnamed_84/argument/id/index.html">
+                                                            id
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1701" class="child function">
+    <span class="signature">
+        <a href="property/craftTemporary/index.html" class="title">
+            craftTemporary
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1698">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Create a new temporary UID string.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_1698">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/craftTemporary/argument/unnamed_85/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_1695">
+            id
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1695">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">String</a>
+                                                        </span>
+                                                        <a class="title" href="property/craftTemporary/argument/unnamed_85/argument/id/index.html">
+                                                            id
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1704" class="child function">
+    <span class="signature">
+        <a href="property/parse/index.html" class="title">
+            parse
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Extract the creation timestamp and <code>temporary</code> flag from a UID string.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

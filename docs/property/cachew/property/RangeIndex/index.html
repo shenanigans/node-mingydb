@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.cachew.RangeIndex documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="module" id="component_1680">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">module</a>
+            <span>
+                <a class="valtype" href="javascript:return false;">class</a>
+                
+                <span class="valsep">|</span>
+            </span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb property">cachew</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb module">RangeIndex</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#statics">Static Properties</a></h4>
+                <a href="#component_1569">index</a><br />
+                <a href="#component_1572">refs</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#methods">Instance Methods</a></h4>
+                <a href="#component_1668">best</a><br />
+                <a href="#component_1614">drop</a><br />
+                <a href="#component_1608">get</a><br />
+                <a href="#component_1674">getHighest</a><br />
+                <a href="#component_1671">getLowest</a><br />
+                <a href="#component_1626">getNarest</a><br />
+                <a href="#component_1638">getNearestAbove</a><br />
+                <a href="#component_1650">nearestBelow</a><br />
+                <a href="#component_1662">range</a><br />
+                <a href="#component_1587">seek</a><br />
+                <a href="#component_1599">set</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>Map values to Numbers, then perform nearby-value and range queries.</p>
+</div>
+                <div class="clear"></div>
+                <!-- constructor function -->
+                <h1>Constructor</h1>
+                <div id="constructor" class="section constructor">
+                    <h2 class="signature">
+                        RangeIndex (
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="title" href="#component_1677">
+            maxvals
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+                        ) {
+                    </h2>
+                    <div class="markdown"></div>
+                        <h3>Arguments</h3>
+                        <div class="section arguments">
+                                <div class="child argument" id="component_1677">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="argument/maxvals/index.html">
+            maxvals
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"><p>Throw an Error when attempting to add a value and there are already <code>maxvals</code> values mapped.</p>
+</span>
+                                    <div class="tail"></div></div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<div class="children">
+        <!-- static properties -->
+        <h1 id="statics" class="header">Static Properties</h1>
+        <div class="section properties">
+<div id="component_1569" class="child property">
+    <span class="signature">
+        <span>
+            <span class="valsep">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        
+        <a class="title" href="property/index/index.html">index</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+<div id="component_1572" class="child property">
+    <span class="signature">
+        <span>
+            <span class="valsep">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        
+        <a class="title" href="property/refs/index.html">refs</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+        </div>
+        <!-- instance methods -->
+        <h1 id="methods" class="header">Instance Methods</h1>
+        <div class="section members">
+<div id="component_1668" class="child function">
+    <span class="signature">
+        <a href="member/best/index.html" class="title">
+            best
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1665">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Simply return the single value mapped closest to the sample. Equivalent to
+<code>nearest (sample, 1);</code> but returns an individual value rather than an Array.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1665">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/best/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1614" class="child function">
+    <span class="signature">
+        <a href="member/drop/index.html" class="title">
+            drop
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1611">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Drop a member from the index by exact value, returning the dropped value.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1611">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/drop/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>@returns Object|undefined</p>
+</span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1608" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/get/index.html" class="title">
+            get
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1602">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Get a member of the index by exact value, or undefined.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1602">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/get/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1605" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/get/returns/unnamed_83/index.html"></a>
+    </span>
+    <div class="info">
+<span class="markdown"><p>The value stored for <code>key</code>, or <code>undefined</code> if <code>key</code> was never set or has expired.</p>
+</span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1674" class="child function">
+    <span class="signature">
+        <a href="member/getHighest/index.html" class="title">
+            getHighest
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return the value mapped to the highest key in the index.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1671" class="child function">
+    <span class="signature">
+        <a href="member/getLowest/index.html" class="title">
+            getLowest
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return the value mapped to the lowest key in the index.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1626" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/getNarest/index.html" class="title">
+            getNarest
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1617">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_1620">
+            count
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Find the values mapped nearest to the provided index. Optionally limit the number of entries
+returned.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1617">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/getNarest/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1620">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/getNarest/argument/count/index.html">
+            count
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1623" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/getNarest/returns/Array/index.html">Array</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1638" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/getNearestAbove/index.html" class="title">
+            getNearestAbove
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1629">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_1632">
+            count
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Find the values mapped nearest above or equal to the provided value. Optionally limit the number
+of entries returned.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1629">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/getNearestAbove/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1632">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/getNearestAbove/argument/count/index.html">
+            count
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1635" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/getNearestAbove/returns/Array/index.html">Array</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1650" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/nearestBelow/index.html" class="title">
+            nearestBelow
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1641">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_1644">
+            count
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Find the values mapped nearest below or equal to the provided index. Optionally limit the number
+of entries returned and/or restrict the minimum index which may be selected.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1641">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/nearestBelow/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1644">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/nearestBelow/argument/count/index.html">
+            count
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1647" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/nearestBelow/returns/Array/index.html">Array</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1662" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types"></span>
+            </span>
+        <a href="member/range/index.html" class="title">
+            range
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1653">
+            min
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1656">
+            max
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1653">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/range/argument/min/index.html">
+            min
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1656">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/range/argument/max/index.html">
+            max
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1659" class="child returns">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="member/range/returns/Array/index.html">Array</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1587" class="child function">
+    <span class="signature">
+        <a href="member/seek/index.html" class="title">
+            seek
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1575">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1584">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Search for either the stored index and ref of a value, or the possible insertion index for the
+value.</p>
+<p>This function is a rather ugly pattern - a synchronous callback. The callback is guaranteed to
+complete before this method call does. It&#39;s the least inefficient way to pass two return values
+in javascript.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1575">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/seek/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1584">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/seek/argument/unnamed_81/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="title" href="#component_1578">
+            location
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span></span>
+        <a class="title" href="#component_1581">
+            value
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1578">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Number</a>
+                                                        </span>
+                                                        <a class="title" href="member/seek/argument/unnamed_81/argument/location/index.html">
+                                                            location
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1581">
+                                                <span class="signature">
+                                                        <span></span>
+                                                        <a class="title" href="member/seek/argument/unnamed_81/argument/value/index.html">
+                                                            value
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1599" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types">
+                    <span class="valsep punctuation">|</span>
+                    <a class="valtype" href="index.html">cachew.RangeIndex</a>
+                </span>
+            </span>
+        <a href="member/set/index.html" class="title">
+            set
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1590">
+            index
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1593">
+            val
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Map a value to a Number index.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1590">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/set/argument/index/index.html">
+            index
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1593">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/set/argument/val/index.html">
+            val
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_1596" class="child returns">
+    <span class="signature">
+        <span>
+            <span class="valsep">|</span>
+            <a class="valtype" href="index.html">cachew.RangeIndex</a>
+            
+        </span>
+        
+        <a class="title" href="member/set/returns/unnamed_82/index.html"></a>
+    </span>
+    <div class="info">
+<span class="markdown"><p>Self.</p>
+</span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,4151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.mingydb.Compressor documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="module" id="component_1206">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">module</a>
+            <span>
+                <a class="valtype" href="javascript:return false;">class</a>
+                
+                <span class="valsep">|</span>
+            </span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb module">mingydb</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb module">Compressor</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#statics">Static Properties</a></h4>
+                <a href="#component_756">Configuration</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#functions">Static Functions</a></h4>
+                <a href="#component_867">compressProjection</a><br />
+                <a href="#component_852">compressQuery</a><br />
+                <a href="#component_837">compressRecord</a><br />
+                <a href="#component_897">compressSort</a><br />
+                <a href="#component_882">compressUpdate</a><br />
+                <a href="#component_822">decompressArray</a><br />
+                <a href="#component_798">decompressLevel</a><br />
+                <a href="#component_774">decompressPath</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#methods">Instance Methods</a></h4>
+                <a href="#component_1113">compressAggregationPipeline</a><br />
+                <a href="#component_1053">compressAndEnsurePath</a><br />
+                <a href="#component_1017">compressDocumentArray</a><br />
+                <a href="#component_993">compressDocumentLevel</a><br />
+                <a href="#component_1134">compressExpression</a><br />
+                <a href="#component_1083">compressIndexName</a><br />
+                <a href="#component_1068">compressIndexSpec</a><br />
+                <a href="#component_969">compressOperatorArray</a><br />
+                <a href="#component_945">compressOperatorLevel</a><br />
+                <a href="#component_1035">compressPath</a><br />
+                <a href="#component_1152">decompress</a><br />
+                <a href="#component_1098">decompressIndexName</a><br />
+                <a href="#component_1188">dropAlias</a><br />
+                <a href="#component_906">ready</a><br />
+                <a href="#component_1185">setAlias</a><br />
+                <a href="#component_1167">setCompressed</a><br />
+                <a href="#component_1182">setUncompressed</a><br />
+                <a href="#component_921">waitForShort</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#localValues">Local Values</a></h4>
+                <a href="#component_1191">documentClasses</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#localFunctions">Local Functions</a></h4>
+                <a href="#component_1194">getMin</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>Compresses and decompresses MongoDB input and output.</p>
+</div>
+                <div class="clear"></div>
+                <!-- constructor function -->
+                <h1>Constructor</h1>
+                <div id="constructor" class="section constructor">
+                    <h2 class="signature">
+                        Compressor (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_1197">
+            dbName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_1200">
+            documentClass
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="property/Configuration/index.html">mingydb.Compressor.Configuration</a>
+            
+        </span>
+        <a class="title" href="#component_1203">
+            config
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+                        ) {
+                    </h2>
+                    <div class="markdown"></div>
+                        <h3>Arguments</h3>
+                        <div class="section arguments">
+                                <div class="child argument" id="component_1197">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="argument/dbName/index.html">
+            dbName
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_1200">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="argument/documentClass/index.html">
+            documentClass
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_1203">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="property/Configuration/index.html">mingydb.Compressor.Configuration</a>
+            
+        </span>
+        <a class="name" href="argument/config/index.html">
+            config
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<div class="children">
+        <!-- static properties -->
+        <h1 id="statics" class="header">Static Properties</h1>
+        <div class="section properties">
+<div id="component_756" class="child class">
+    <span class="signature">
+        <span></span>
+        
+            <span class="ctype">class</span>
+        
+        <a class="title" href="property/Configuration/index.html">Configuration</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+        </div>
+        <!-- static functions -->
+        <h1 id="functions" class="header">Static Functions</h1>
+        <div class="section properties">
+<div id="component_867" class="child function">
+    <span class="signature">
+        <a href="property/compressProjection/index.html" class="title">
+            compressProjection
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_855">
+            projection
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_864">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a projection specification.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_855">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/compressProjection/argument/projection/index.html">
+            projection
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_864">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/compressProjection/argument/unnamed_55/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_858">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_861">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_858">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressProjection/argument/unnamed_55/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_861">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressProjection/argument/unnamed_55/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_852" class="child function">
+    <span class="signature">
+        <a href="property/compressQuery/index.html" class="title">
+            compressQuery
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_840">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_849">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query document.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_840">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/compressQuery/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_849">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/compressQuery/argument/unnamed_54/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_843">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_846">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_843">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressQuery/argument/unnamed_54/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_846">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressQuery/argument/unnamed_54/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_837" class="child function">
+    <span class="signature">
+        <a href="property/compressRecord/index.html" class="title">
+            compressRecord
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_825">
+            record
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_834">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a full document.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_825">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/compressRecord/argument/record/index.html">
+            record
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_834">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/compressRecord/argument/unnamed_53/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_828">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_831">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_828">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressRecord/argument/unnamed_53/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_831">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressRecord/argument/unnamed_53/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_897" class="child function">
+    <span class="signature">
+        <a href="property/compressSort/index.html" class="title">
+            compressSort
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_885">
+            sort
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_894">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a sort specification.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_885">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="name" href="property/compressSort/argument/sort/index.html">
+            sort
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_894">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/compressSort/argument/unnamed_57/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_888">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="title" href="#component_891">
+            compressedSort
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_888">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressSort/argument/unnamed_57/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_891">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressSort/argument/unnamed_57/argument/compressedSort/index.html">
+                                                            compressedSort
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_882" class="child function">
+    <span class="signature">
+        <a href="property/compressUpdate/index.html" class="title">
+            compressUpdate
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_870">
+            update
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_879">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an update document.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_870">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/compressUpdate/argument/update/index.html">
+            update
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_879">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/compressUpdate/argument/unnamed_56/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_873">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_876">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_873">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressUpdate/argument/unnamed_56/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_876">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/compressUpdate/argument/unnamed_56/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_822" class="child function">
+    <span class="signature">
+        <a href="property/decompressArray/index.html" class="title">
+            decompressArray
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_801">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_804">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_807">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_810">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_819">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Decompress an Array of compressed documents or leaves.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_801">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/decompressArray/argument/rec/index.html">
+            rec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_804">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressArray/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_807">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressArray/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_810">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/decompressArray/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_819">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/decompressArray/argument/unnamed_52/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_813">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_816">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_813">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressArray/argument/unnamed_52/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_816">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressArray/argument/unnamed_52/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_798" class="child function">
+    <span class="signature">
+        <a href="property/decompressLevel/index.html" class="title">
+            decompressLevel
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_777">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_780">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_783">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_786">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_795">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Decompress a &quot;document level&quot; - an Object containing non-dotted paths mapped to leaf data or
+more document levels.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_777">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/decompressLevel/argument/rec/index.html">
+            rec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_780">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressLevel/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_783">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressLevel/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_786">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="property/decompressLevel/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_795">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/decompressLevel/argument/unnamed_51/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_789">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_792">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_789">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressLevel/argument/unnamed_51/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_792">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressLevel/argument/unnamed_51/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_774" class="child function">
+    <span class="signature">
+        <a href="property/decompressPath/index.html" class="title">
+            decompressPath
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_759">
+            root
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_762">
+            path
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_771">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Convert a compressed dotted path to its uncompressed equivalent.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_759">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressPath/argument/root/index.html">
+            root
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_762">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/decompressPath/argument/path/index.html">
+            path
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_771">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/decompressPath/argument/unnamed_50/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_765">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_768">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_765">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressPath/argument/unnamed_50/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_768">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="property/decompressPath/argument/unnamed_50/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+        <!-- instance methods -->
+        <h1 id="methods" class="header">Instance Methods</h1>
+        <div class="section members">
+<div id="component_1113" class="child function">
+    <span class="signature">
+        <a href="member/compressAggregationPipeline/index.html" class="title">
+            compressAggregationPipeline
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1101">
+            pipeline
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1110">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1101">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="name" href="member/compressAggregationPipeline/argument/pipeline/index.html">
+            pipeline
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1110">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressAggregationPipeline/argument/unnamed_61/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1104">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1107">
+            compressedPipeline
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1104">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressAggregationPipeline/argument/unnamed_61/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1107">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressAggregationPipeline/argument/unnamed_61/argument/compressedPipeline/index.html">
+                                                            compressedPipeline
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1053" class="child function">
+    <span class="signature">
+        <a href="member/compressAndEnsurePath/index.html" class="title">
+            compressAndEnsurePath
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1038">
+            root
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1041">
+            path
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1050">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Convert a dotted path to its compressed equivalent.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1038">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressAndEnsurePath/argument/root/index.html">
+            root
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1041">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressAndEnsurePath/argument/path/index.html">
+            path
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1050">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressAndEnsurePath/argument/unnamed_49/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1044">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_1047">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1044">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressAndEnsurePath/argument/unnamed_49/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1047">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressAndEnsurePath/argument/unnamed_49/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1017" class="child function">
+    <span class="signature">
+            <div class="flag private">private</div>
+        <a href="member/compressDocumentArray/index.html" class="title">
+            compressDocumentArray
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_996">
+            arr
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_999">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1002">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1005">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1014">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an Array of documents.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_996">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentArray/argument/arr/index.html">
+            arr
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_999">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentArray/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1002">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentArray/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1005">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentArray/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1014">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressDocumentArray/argument/unnamed_47/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1008">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_1011">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1008">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressDocumentArray/argument/unnamed_47/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1011">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressDocumentArray/argument/unnamed_47/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_993" class="child function">
+    <span class="signature">
+        <a href="member/compressDocumentLevel/index.html" class="title">
+            compressDocumentLevel
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_972">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_975">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_978">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_981">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_990">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a &quot;document level&quot; - an Object containing non-dotted paths mapped to leaf data or more
+document levels.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_972">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentLevel/argument/rec/index.html">
+            rec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_975">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentLevel/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_978">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentLevel/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_981">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressDocumentLevel/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_990">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressDocumentLevel/argument/unnamed_46/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_984">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_987">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_984">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressDocumentLevel/argument/unnamed_46/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_987">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressDocumentLevel/argument/unnamed_46/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1134" class="child function">
+    <span class="signature">
+        <a href="member/compressExpression/index.html" class="title">
+            compressExpression
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1116">
+            expression
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1119">
+            context
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1122">
+            pathRoot
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1131">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an aggregation pipeline expression level.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1116">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressExpression/argument/expression/index.html">
+            expression
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1119">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressExpression/argument/context/index.html">
+            context
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1122">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressExpression/argument/pathRoot/index.html">
+            pathRoot
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1131">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressExpression/argument/unnamed_62/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1125">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span></span>
+        <a class="title" href="#component_1128">
+            compressedExpression
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1125">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressExpression/argument/unnamed_62/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1128">
+                                                <span class="signature">
+                                                        <span></span>
+                                                        <a class="title" href="member/compressExpression/argument/unnamed_62/argument/compressedExpression/index.html">
+                                                            compressedExpression
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1083" class="child function">
+    <span class="signature">
+        <a href="member/compressIndexName/index.html" class="title">
+            compressIndexName
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1071">
+            name
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1080">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an index name matching the format of automatically-generated index names.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1071">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressIndexName/argument/name/index.html">
+            name
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1080">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressIndexName/argument/unnamed_59/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1074">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1077">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1074">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressIndexName/argument/unnamed_59/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1077">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressIndexName/argument/unnamed_59/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1068" class="child function">
+    <span class="signature">
+        <a href="member/compressIndexSpec/index.html" class="title">
+            compressIndexSpec
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1056">
+            spec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1065">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an index specification.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1056">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressIndexSpec/argument/spec/index.html">
+            spec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1065">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressIndexSpec/argument/unnamed_58/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1059">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1062">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1059">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressIndexSpec/argument/unnamed_58/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1062">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressIndexSpec/argument/unnamed_58/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_969" class="child function">
+    <span class="signature">
+        <a href="member/compressOperatorArray/index.html" class="title">
+            compressOperatorArray
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_948">
+            arr
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_951">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_954">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_957">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_966">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an Array of further &quot;operator levels&quot;.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_948">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorArray/argument/arr/index.html">
+            arr
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_951">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorArray/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_954">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorArray/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_957">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorArray/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_966">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressOperatorArray/argument/unnamed_45/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_960">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_963">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_960">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressOperatorArray/argument/unnamed_45/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_963">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressOperatorArray/argument/unnamed_45/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_945" class="child function">
+    <span class="signature">
+        <a href="member/compressOperatorLevel/index.html" class="title">
+            compressOperatorLevel
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_924">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_927">
+            longpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_930">
+            shortpath
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_933">
+            parent
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_942">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Recursively compress an &quot;operator&quot; level - an Object containing either dotted paths or operators
+mapped to leaf data, Arrays, or additional layers.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_924">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorLevel/argument/rec/index.html">
+            rec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_927">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorLevel/argument/longpath/index.html">
+            longpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_930">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorLevel/argument/shortpath/index.html">
+            shortpath
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_933">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/compressOperatorLevel/argument/parent/index.html">
+            parent
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_942">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressOperatorLevel/argument/unnamed_44/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_936">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_939">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_936">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressOperatorLevel/argument/unnamed_44/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_939">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressOperatorLevel/argument/unnamed_44/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1035" class="child function">
+    <span class="signature">
+        <a href="member/compressPath/index.html" class="title">
+            compressPath
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1020">
+            root
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1023">
+            path
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1032">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Convert a dotted path to its compressed equivalent. Return an Error if the minifications do not
+already exist.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1020">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressPath/argument/root/index.html">
+            root
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1023">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/compressPath/argument/path/index.html">
+            path
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1032">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/compressPath/argument/unnamed_48/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1026">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_1029">
+            compressedLevel
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1026">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressPath/argument/unnamed_48/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1029">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/compressPath/argument/unnamed_48/argument/compressedLevel/index.html">
+                                                            compressedLevel
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1152" class="child function">
+    <span class="signature">
+        <a href="member/decompress/index.html" class="title">
+            decompress
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_1137">
+            root
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1140">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1149">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Decompress a previously <a href="javascript:return false;"><code>compressed</code></a> database record.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1137">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/decompress/argument/root/index.html">
+            root
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_1140">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/decompress/argument/compressed/index.html">
+            compressed
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1149">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/decompress/argument/unnamed_63/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1143">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1146">
+            record
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1143">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/decompress/argument/unnamed_63/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1146">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/decompress/argument/unnamed_63/argument/record/index.html">
+                                                            record
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1098" class="child function">
+    <span class="signature">
+        <a href="member/decompressIndexName/index.html" class="title">
+            decompressIndexName
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1086">
+            name
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1095">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Decompress an index name matching the format of automatically-generated index names.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1086">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/decompressIndexName/argument/name/index.html">
+            name
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1095">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/decompressIndexName/argument/unnamed_60/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1089">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1092">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1089">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/decompressIndexName/argument/unnamed_60/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1092">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/decompressIndexName/argument/unnamed_60/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1188" class="child function">
+    <span class="signature">
+        <a href="member/dropAlias/index.html" class="title">
+            dropAlias
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>//</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_906" class="child function">
+    <span class="signature">
+        <a href="member/ready/index.html" class="title">
+            ready
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_903">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Prepare vital collection indexes and prepare native driver instances. When the callback fires,
+this Compressor is ready to read and write compressed documents.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_903">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/ready/argument/unnamed_42/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_900">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_900">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/ready/argument/unnamed_42/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1185" class="child function">
+    <span class="signature">
+        <a href="member/setAlias/index.html" class="title">
+            setAlias
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>//</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1167" class="child function">
+    <span class="signature">
+        <a href="member/setCompressed/index.html" class="title">
+            setCompressed
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1155">
+            path
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1164">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Mark a path as containing compressed information. Used for undoing <code>setDecompressed</code>.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1155">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/setCompressed/argument/path/index.html">
+            path
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1164">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/setCompressed/argument/unnamed_64/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1158">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1161">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1158">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/setCompressed/argument/unnamed_64/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1161">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/setCompressed/argument/unnamed_64/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_1182" class="child function">
+    <span class="signature">
+        <a href="member/setUncompressed/index.html" class="title">
+            setUncompressed
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_1170">
+            path
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_1179">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Mark a path as containing uncompressed information.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_1170">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/setUncompressed/argument/path/index.html">
+            path
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_1179">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/setUncompressed/argument/unnamed_65/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1173">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_1176">
+            compressed
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_1173">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/setUncompressed/argument/unnamed_65/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_1176">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/setUncompressed/argument/unnamed_65/argument/compressed/index.html">
+                                                            compressed
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_921" class="child function">
+    <span class="signature">
+        <a href="member/waitForShort/index.html" class="title">
+            waitForShort
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_909">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_918">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Wait (and poll) for a new minification key to be fully defined on the database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_909">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/waitForShort/argument/rec/index.html">
+            rec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_918">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/waitForShort/argument/unnamed_43/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_912">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefine</a>
+            
+        </span>
+        <a class="title" href="#component_915">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_912">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/waitForShort/argument/unnamed_43/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_915">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefine</a>
+                                                        </span>
+                                                        <a class="title" href="member/waitForShort/argument/unnamed_43/argument/rec/index.html">
+                                                            rec
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+        <!-- instance properties -->
+        <h1 id="localValues" class="header">Local Variables</h1>
+        <div class="section localValues">
+<div id="component_1191" class="child local">
+    <span class="signature">
+        <span>
+            <span class="valsep">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        
+        <a class="title" href="local/documentClasses/index.html">documentClasses</a>
+    </span>
+    <div class="info">
+<span class="markdown"><p>Document class records are always cached permenantly.</p>
+</span>
+    </div>
+</div>
+        </div>
+        <!-- instance properties -->
+        <h1 id="localFunctions" class="header">Local Functions</h1>
+        <div class="section localFunctions">
+<div id="component_1194" class="child function">
+    <span class="signature">
+            <div class="flag private">private</div>
+        <a href="local/getMin/index.html" class="title">
+            getMin
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Get a minification key for a number.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.exhibition.uid~details documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../../../index.js"></script>
+</head>
+<body class="spare" id="component_1705">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../../../index.html">spare</a>
+            <span></span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../../../index.html" class="breadcrumb property">exhibition</a><span class="delimiter">.</span><a href="../../index.html" class="breadcrumb module">uid</a><span class="delimiter">~</span><a href="index.html" class="breadcrumb spare">details</a>
+            </span>
+        </div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                    <div class="markdown"><p>Generates, parses and examines unique identifiers. An <strong>infosex</strong> id is a 28-character base64
+string representing a random hash, a randomly-seeded sequential count byte, a timestamp, and a
+state flag indicating whether an id is &quot;temporary&quot;. In Model applications, &quot;temporary&quot;
+<strong>infosex</strong> ids are used to indicate that a resource is newly created and does not exist on the
+server yet.</p>
+<p><strong>infosex</strong> ids are cryptographically strong to 88 bits in the high-order portion. They are
+never sequential. They are not guaranteed to be unique across multiple processes and machines,
+however, there is only a 1 nanosecond window in which a physical processor can generate a
+colliding key. There is a 1ms window in which multiple machines may produce colliding keys,
+with a probability of one against two to the ninety sixth power per attempt.</p>
+</div>
+                <div class="clear"></div>
+        </div>
+<div class="children">
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,3828 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.mingydb.Collection documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="class" id="component_741">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">class</a>
+            <span></span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb module">mingydb</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb class">Collection</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#statics">Static Properties</a></h4>
+                <a href="#component_318">drop</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#methods">Instance Methods</a></h4>
+                <a href="#component_687">aggregate</a><br />
+                <a href="#component_504">count</a><br />
+                <a href="#component_486">distinct</a><br />
+                <a href="#component_561">dropAllIndexes</a><br />
+                <a href="#component_552">dropIndex</a><br />
+                <a href="#component_540">ensureIndex</a><br />
+                <a href="#component_357">find</a><br />
+                <a href="#component_378">findAll</a><br />
+                <a href="#component_450">findAndModify</a><br />
+                <a href="#component_525">findAndRemove</a><br />
+                <a href="#component_408">findOne</a><br />
+                <a href="#component_669">geoHaystackSearch</a><br />
+                <a href="#component_648">geoNear</a><br />
+                <a href="#component_600">indexExists</a><br />
+                <a href="#component_585">indexInformation</a><br />
+                <a href="#component_720">initializeOrderedBulkOp</a><br />
+                <a href="#component_336">insert</a><br />
+                <a href="#component_624">isCapped</a><br />
+                <a href="#component_570">listIndexes</a><br />
+                <a href="#component_612">options</a><br />
+                <a href="#component_723">parallelCollectionScan</a><br />
+                <a href="#component_609">reIndex</a><br />
+                <a href="#component_465">remove</a><br />
+                <a href="#component_717">rename</a><br />
+                <a href="#component_726">setCompressed</a><br />
+                <a href="#component_729">setUncompressed</a><br />
+                <a href="#component_702">stats</a><br />
+                <a href="#component_426">update</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>A wrapped MongoDB collection with record compression inlined.</p>
+</div>
+                <div class="clear"></div>
+                <!-- constructor function -->
+                <h1>Constructor</h1>
+                <div id="constructor" class="section constructor">
+                    <h2 class="signature">
+                        Collection (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_732">
+            collectionName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mongodb.Collection</a>
+            
+        </span>
+        <a class="title" href="#component_735">
+            collection
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="../../property/Compressor/index.html">mingydb.Compressor</a>
+            
+        </span>
+        <a class="title" href="#component_738">
+            compressor
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+                        ) {
+                    </h2>
+                    <div class="markdown"></div>
+                        <h3>Arguments</h3>
+                        <div class="section arguments">
+                                <div class="child argument" id="component_732">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="argument/collectionName/index.html">
+            collectionName
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_735">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mongodb.Collection</a>
+            
+        </span>
+        <a class="name" href="argument/collection/index.html">
+            collection
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_738">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="../../property/Compressor/index.html">mingydb.Compressor</a>
+            
+        </span>
+        <a class="name" href="argument/compressor/index.html">
+            compressor
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<div class="children">
+        <!-- static properties -->
+        <h1 id="statics" class="header">Static Properties</h1>
+        <div class="section properties">
+<div id="component_321" class="child member">
+    <span class="signature">
+        <span></span>
+        
+        <a class="title" href="property/Collection/member/drop/index.html">drop</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+        </div>
+        <!-- instance methods -->
+        <h1 id="methods" class="header">Instance Methods</h1>
+        <div class="section members">
+<div id="component_687" class="child function">
+    <span class="signature">
+        <a href="member/aggregate/index.html" class="title">
+            aggregate
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_672">
+            pipeline
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_675">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_684">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress and submit an aggregation pipeline to the database. Decompress and retrieve the
+results.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_672">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="name" href="member/aggregate/argument/pipeline/index.html">
+            pipeline
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_675">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/aggregate/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_684">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/aggregate/argument/unnamed_39/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_678">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_681">
+            documents
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_678">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/aggregate/argument/unnamed_39/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_681">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/aggregate/argument/unnamed_39/argument/documents/index.html">
+                                                            documents
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_504" class="child function">
+    <span class="signature">
+        <a href="member/count/index.html" class="title">
+            count
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_489">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_492">
+            options
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_501">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query, select and count matching records.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_489">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/count/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_492">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/count/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_501">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/count/argument/unnamed_26/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_495">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="title" href="#component_498">
+            count
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_495">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/count/argument/unnamed_26/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_498">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Number</a>
+                                                        </span>
+                                                        <a class="title" href="member/count/argument/unnamed_26/argument/count/index.html">
+                                                            count
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_486" class="child function">
+    <span class="signature">
+        <a href="member/distinct/index.html" class="title">
+            distinct
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_468">
+            key
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_471">
+            query
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_474">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_483">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Scan a collection or query selection, collecting all unique values and/or subdocuments.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_468">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/distinct/argument/key/index.html">
+            key
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>The path to scan.</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_471">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/distinct/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>Selects a subset of documents to scan for unique values.</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_474">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/distinct/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_483">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/distinct/argument/unnamed_25/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_477">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="title" href="#component_480">
+            values
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_477">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/distinct/argument/unnamed_25/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_480">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/distinct/argument/unnamed_25/argument/values/index.html">
+                                                            values
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_561" class="child function">
+    <span class="signature">
+        <a href="member/dropAllIndexes/index.html" class="title">
+            dropAllIndexes
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_558">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Remove all indexes from the database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_558">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/dropAllIndexes/argument/unnamed_31/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_555">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_555">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/dropAllIndexes/argument/unnamed_31/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_552" class="child function">
+    <span class="signature">
+        <a href="member/dropIndex/index.html" class="title">
+            dropIndex
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_543">
+            name
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_549">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Remove an index from the database by name.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_543">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/dropIndex/argument/name/index.html">
+            name
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_549">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/dropIndex/argument/unnamed_30/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_546">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_546">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/dropIndex/argument/unnamed_30/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_540" class="child function">
+    <span class="signature">
+        <a href="member/ensureIndex/index.html" class="title">
+            ensureIndex
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_528">
+            spec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_531">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_537">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress an index specification and ensure that it exists on the database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_528">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/ensureIndex/argument/spec/index.html">
+            spec
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_531">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/ensureIndex/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_537">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/ensureIndex/argument/unnamed_29/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_534">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_534">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/ensureIndex/argument/unnamed_29/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_357" class="child function">
+    <span class="signature">
+        <a href="member/find/index.html" class="title">
+            find
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_339">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_342">
+            projection
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_345">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_354">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query and pass it to the database, producing a <a href="../../property/Cursor/index.html"><code>cursor</code></a>.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_339">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/find/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_342">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/find/argument/projection/index.html">
+            projection
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>Projection specification document. Compressed before submission.</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_345">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/find/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>Pass native options to MongoDB. The <code>sort</code> and <code>hint</code> options will be compressed.</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_354">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/find/argument/unnamed_19/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_348">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="../../property/Cursor/index.html">mingydb.Cursor</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_351">
+            cursor
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_348">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/find/argument/unnamed_19/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_351">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="../../property/Cursor/index.html">mingydb.Cursor</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/find/argument/unnamed_19/argument/cursor/index.html">
+                                                            cursor
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_378" class="child function">
+    <span class="signature">
+        <a href="member/findAll/index.html" class="title">
+            findAll
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_360">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_363">
+            projection
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_366">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_375">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>A convenience method to call <a href="member/find/index.html"><code>find</code></a> and then <a href="../../property/Cursor/member/toArray/index.html"><code>toArray</code></a> on the resultant cursor. Optionally project or pass other <code>options</code>.</p>
+<p><strong>DANGER</strong> - like toArray, you can run the process out of memory if your query selects tons of
+documents. It is <em>highly</em> recommended that you use use the <code>limit</code> option to control the return
+batch.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_360">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAll/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_363">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAll/argument/projection/index.html">
+            projection
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_366">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mingydb.Collection.Collection.QueryOptions</a>
+            
+        </span>
+        <a class="name" href="member/findAll/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>@</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_375">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/findAll/argument/unnamed_20/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_369">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+        </span>
+        <a class="title" href="#component_372">
+            records
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_369">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAll/argument/unnamed_20/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_372">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAll/argument/unnamed_20/argument/records/index.html">
+                                                            records
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_450" class="child function">
+    <span class="signature">
+        <a href="member/findAndModify/index.html" class="title">
+            findAndModify
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_429">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_432">
+            sort
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_435">
+            update
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_438">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_447">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress and submit an update to the database and retrieve the affected record atomically.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_429">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAndModify/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_432">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAndModify/argument/sort/index.html">
+            sort
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_435">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAndModify/argument/update/index.html">
+            update
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_438">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/findAndModify/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_447">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/findAndModify/argument/unnamed_23/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_441">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_444">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_441">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAndModify/argument/unnamed_23/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_444">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAndModify/argument/unnamed_23/argument/rec/index.html">
+                                                            rec
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_525" class="child function">
+    <span class="signature">
+        <a href="member/findAndRemove/index.html" class="title">
+            findAndRemove
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_507">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_510">
+            sort
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_513">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_522">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query, select one document, remove it from the database and retrieve its contents.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_507">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAndRemove/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_510">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findAndRemove/argument/sort/index.html">
+            sort
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_513">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/findAndRemove/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_522">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/findAndRemove/argument/unnamed_28/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_516">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_519">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_516">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAndRemove/argument/unnamed_28/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_519">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findAndRemove/argument/unnamed_28/argument/rec/index.html">
+                                                            rec
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_408" class="child function">
+    <span class="signature">
+        <a href="member/findOne/index.html" class="title">
+            findOne
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_381">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_384">
+            fields
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_387">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_390">
+            skip
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_393">
+            limit
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_396">
+            timeout
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_405">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query document and query the database for zero or one matching records. Optionally
+project the result record.</p>
+<p>Note that contrary to the native driver documentation, in <code>mingydb</code> the second argument is
+always assumed to be a projection, never an options object.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_381">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_384">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/fields/index.html">
+            fields
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_387">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_390">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/skip/index.html">
+            skip
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_393">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/limit/index.html">
+            limit
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_396">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/findOne/argument/timeout/index.html">
+            timeout
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_405">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/findOne/argument/unnamed_21/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_399">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_402">
+            rec
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_399">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findOne/argument/unnamed_21/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_402">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/findOne/argument/unnamed_21/argument/rec/index.html">
+                                                            rec
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_669" class="child function">
+    <span class="signature">
+        <a href="member/geoHaystackSearch/index.html" class="title">
+            geoHaystackSearch
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_651">
+            x
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_654">
+            y
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_657">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_666">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Search for documents located near a legacy coordinate pair using a Haystack index. Requires that
+this collection have exactly one geospatial index of <code>geoHaystack</code> type.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_651">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/geoHaystackSearch/argument/x/index.html">
+            x
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_654">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/geoHaystackSearch/argument/y/index.html">
+            y
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_657">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/geoHaystackSearch/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_666">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/geoHaystackSearch/argument/unnamed_38/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_660">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_663">
+            documents
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_660">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/geoHaystackSearch/argument/unnamed_38/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_663">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/geoHaystackSearch/argument/unnamed_38/argument/documents/index.html">
+                                                            documents
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_648" class="child function">
+    <span class="signature">
+        <a href="member/geoNear/index.html" class="title">
+            geoNear
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_627">
+            geoJSON
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_630">
+            x
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_633">
+            y
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_636">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_645">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Search for documents located near a legacy coordinate pair or GeoJSON location document.
+Requires that this collection have exactly one geospatial index of either <code>2d</code> or <code>2dsphere</code>
+type.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_627">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/geoNear/argument/geoJSON/index.html">
+            geoJSON
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_630">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/geoNear/argument/x/index.html">
+            x
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_633">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="member/geoNear/argument/y/index.html">
+            y
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_636">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/geoNear/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_645">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/geoNear/argument/unnamed_37/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_639">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">Object</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_642">
+            documents
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_639">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/geoNear/argument/unnamed_37/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_642">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/geoNear/argument/unnamed_37/argument/documents/index.html">
+                                                            documents
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_600" class="child function">
+    <span class="signature">
+        <a href="member/indexExists/index.html" class="title">
+            indexExists
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_588">
+            indexNames
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_597">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Determine whether one or more indexes exist on this collection.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_588">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">String</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="name" href="member/indexExists/argument/indexNames/index.html">
+            indexNames
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_597">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/indexExists/argument/unnamed_34/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_591">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Boolean</a>
+            
+        </span>
+        <a class="title" href="#component_594">
+            exists
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_591">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/indexExists/argument/unnamed_34/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_594">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Boolean</a>
+                                                        </span>
+                                                        <a class="title" href="member/indexExists/argument/unnamed_34/argument/exists/index.html">
+                                                            exists
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_585" class="child function">
+    <span class="signature">
+        <a href="member/indexInformation/index.html" class="title">
+            indexInformation
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_573">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_582">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Acquire a document describing all indexes on this collection.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_573">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/indexInformation/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_582">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/indexInformation/argument/unnamed_33/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_576">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_579">
+            info
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_576">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/indexInformation/argument/unnamed_33/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_579">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/indexInformation/argument/unnamed_33/argument/info/index.html">
+                                                            info
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_720" class="child function">
+    <span class="signature">
+        <a href="member/initializeOrderedBulkOp/index.html" class="title">
+            initializeOrderedBulkOp
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_336" class="child function">
+    <span class="signature">
+        <a href="member/insert/index.html" class="title">
+            insert
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_324">
+            record
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_327">
+            options
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_333">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress and insert a record into the database. Unknown paths will be given new minification
+keys. Unlike native insertion, the callback is not optional. This is because the record
+<a href="../../property/Compressor/index.html"><code>compression</code></a> stage may generate an Error.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_324">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/insert/argument/record/index.html">
+            record
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_327">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/insert/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"><p>optional</p>
+</span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_333">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/insert/argument/unnamed_18/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_330">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_330">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/insert/argument/unnamed_18/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_624" class="child function">
+    <span class="signature">
+        <a href="member/isCapped/index.html" class="title">
+            isCapped
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_621">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Determine whether this collection is capped.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_621">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/isCapped/argument/unnamed_36/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_615">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Boolean</a>
+            
+        </span>
+        <a class="title" href="#component_618">
+            capped
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_615">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/isCapped/argument/unnamed_36/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_618">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Boolean</a>
+                                                        </span>
+                                                        <a class="title" href="member/isCapped/argument/unnamed_36/argument/capped/index.html">
+                                                            capped
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_570" class="child function">
+    <span class="signature">
+            <span>
+                <span class="valsep">,</span>
+                <span class="types">
+                    <span class="valsep punctuation">|</span>
+                    <a class="valtype" href="../../property/IndexInfoCursor/index.html">mingydb.IndexInfoCursor</a>
+                </span>
+            </span>
+        <a href="member/listIndexes/index.html" class="title">
+            listIndexes
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_564">
+            options
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Creates a cursor for exploring index information on this collection.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_564">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/listIndexes/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+            <h4>Returns</h4>
+            <div class="section returns">
+                    <div class="return">
+<div id="component_567" class="child returns">
+    <span class="signature">
+        <span>
+            <span class="valsep">|</span>
+            <a class="valtype" href="../../property/IndexInfoCursor/index.html">mingydb.IndexInfoCursor</a>
+            
+        </span>
+        
+        <a class="title" href="member/listIndexes/returns/unnamed_32/index.html"></a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_612" class="child function">
+    <span class="signature">
+        <a href="member/options/index.html" class="title">
+            options
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_723" class="child function">
+    <span class="signature">
+        <a href="member/parallelCollectionScan/index.html" class="title">
+            parallelCollectionScan
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_609" class="child function">
+    <span class="signature">
+        <a href="member/reIndex/index.html" class="title">
+            reIndex
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_606">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Rebuild all indexes on this collection.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_606">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/reIndex/argument/unnamed_35/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_603">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_603">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/reIndex/argument/unnamed_35/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_465" class="child function">
+    <span class="signature">
+        <a href="member/remove/index.html" class="title">
+            remove
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_453">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_456">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_462">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress a query, submit it to the database and delete all matching records.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_453">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/remove/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_456">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/remove/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_462">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/remove/argument/unnamed_24/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_459">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_459">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/remove/argument/unnamed_24/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_717" class="child function">
+    <span class="signature">
+        <a href="member/rename/index.html" class="title">
+            rename
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_705">
+            name
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_708">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_714">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Rename this collection.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_705">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/rename/argument/name/index.html">
+            name
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_708">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/rename/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_714">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/rename/argument/unnamed_41/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_711">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_711">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/rename/argument/unnamed_41/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_726" class="child function">
+    <span class="signature">
+        <a href="member/setCompressed/index.html" class="title">
+            setCompressed
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_729" class="child function">
+    <span class="signature">
+        <a href="member/setUncompressed/index.html" class="title">
+            setUncompressed
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"></span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_702" class="child function">
+    <span class="signature">
+        <a href="member/stats/index.html" class="title">
+            stats
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_690">
+            options
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_699">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Obtain database stats information.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_690">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/stats/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_699">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/stats/argument/unnamed_40/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_693">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="title" href="#component_696">
+            stats
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_693">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/stats/argument/unnamed_40/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_696">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Object</a>
+                                                        </span>
+                                                        <a class="title" href="member/stats/argument/unnamed_40/argument/stats/index.html">
+                                                            stats
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_426" class="child function">
+    <span class="signature">
+        <a href="member/update/index.html" class="title">
+            update
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_411">
+            query
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_414">
+            update
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_417">
+            options
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_423">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Compress and submit an update to the database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_411">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/update/argument/query/index.html">
+            query
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_414">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Object</a>
+            
+        </span>
+        <a class="name" href="member/update/argument/update/index.html">
+            update
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_417">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">JSON</a>
+            
+        </span>
+        <a class="name" href="member/update/argument/options/index.html">
+            options
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_423">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/update/argument/unnamed_22/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_420">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_420">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/update/argument/unnamed_22/argument/err/index.html">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">11:57am</span> on <span class="date">Saturday, January 17, 2015</span>
+    </div>
+</body>
+</html>

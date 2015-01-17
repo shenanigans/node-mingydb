@@ -98,7 +98,8 @@ mingydb.collection (
 
 Documentation
 -------------
-Full documentation available [here.](https://shenanigans.github.io/node-mingydb/index.html)
+Full documentation available [here.]
+(https://shenanigans.github.io/node-mingydb/docs/property/mingydb/index.html)
 
 For most purposes, you may refer to the documentation for the
 [standard driver](http://mongodb.github.io/node-mongodb-native/1.4/).
