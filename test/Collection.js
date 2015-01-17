@@ -1800,7 +1800,6 @@ describe ("Collection", function(){
         });
 
         it ("finds GeoJSON records near a point", function (done) {
-
             geoTestCollection.geoHaystackSearch (
                 -5.5,
                 8.1,

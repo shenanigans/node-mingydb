@@ -4,8 +4,8 @@ Drop-in automagic compressing driver for [MongoDB](http://www.mongodb.org/). All
 update, index, administrate, aggregate and otherwise perturb a MongoDB instance in an optimally
 minified fashion without sacrificing legibility, sanity, or goats.
 
-`mingydb` is early software. It has respectable test coverage but has yet to undergo significant
-testing in the wild.
+`mingydb` is early software. It has respectable test coverage but so far has not experienced
+significant testing in the wild.
 
 
 Installation
@@ -23,31 +23,73 @@ Using MingyDB
 ```javascript
 // var mongodb = require ('mongodb');
 var mongodb = require ('mingydb');
-```
 
-The api differs in a few ways:
- * The `save` method is not supported.
- * Nothing officially deprecated is supported.
- * The `$where` operator will fail.
- * MapReduce is not supported. Use aggregation.
- * `Collection#find` and `Collection#findOne` have no `skip`, `limit`, or `timeout` arguments. When three arguments are provided, the second is **always** assumed to be a projection, **never** an `options` Object.
- * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
- * `geoHaystackSearch` returns a simple Array of records.
+// connect with Db
+var Db = new mongodb.Db ('databaseName', serverInstance);
+Db.open (function (err) {
+    Db.collection ("collectionName", perturbCollection);
+});
+
+// connect with MongoClient
+mongodb.open (serverInstance, function (err, client) {
+    client.collection (
+        "collectionName",
+        perturbCollection
+    );
+});
+
+// connect with connect
+mongodb.connect (
+    "mongodb://mongo.example.com:9001/databaseName",
+    options,
+    function (err, client) {
+        client.collection (
+            "collectionName",
+            perturbCollection
+        );
+    }
+);
+
+// try this easy new method
+mongodb.collection (
+    "databaseName",
+    "collectionName",
+    new mongodb.Server ("127.0.0.1", 27017),
+    perturbCollection
+);
+```
 
 A collection called `_mins` will be created in each database. If you plan to bombard your cluster
 with new paths, you may shard this collection on the existing index `p_1_l_1`.
 
+####API Differences
+ * Callbacks are never optional.
+ * The `save` method is not supported.
+ * Nothing officially deprecated is supported.
+ * The `$where` operator will fail.
+ * MapReduce is not supported. Use aggregation.
+ * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
+ * `geoHaystackSearch` returns a simple Array of records.
+
+####Aggregation Notes
+ * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form can't stay consistent as you `$$DESCEND`)
+ * Aggregation stages must not transplant compressed subdocuments from one key to another or the entire document will become unrecoverable. Use `setDecompressed` or wait for `setAlias` to be ready.
+ * Writing `$out` to another collection requires at least one `$group` or `$project` stage. During the **first** such stage, the path namespace shifts automatically from the first collection to the second.
+
+####Geospatial Notes
 To use a geospatial index with GeoJSON or legacy pairs with named fields, it is necessary to mark
 part of the document as uncompressed. To do this, use `Collection#setUncompressed`.
 ```javascript
 mingydb.collection (
-    myDB,
-    myCollection,
-    aServer,
+    "databaseName",
+    "collectionName",
+    new mingydb.Server ('127.0.0.1', 27017),
     function (err, collection) {
         collection.setUncompressed ('location', function (err) {
-            // done
+            collection.ensureIndex ({ location:'2dsphere' }, function (err) {
+                // ready for geospatial operations
 
+            });
         });
     }
 );

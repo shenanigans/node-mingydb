@@ -1,8 +1,6 @@
 
 /**     @module mingydb
-
-@spare details
-    Wraps MongoDB connectivity and obfuscates document minification.
+    Automatic compression layer for MongoDB.
 */
 
 var url         = require ('url');
@@ -18,7 +16,13 @@ var Db          = mongodb.Db;
 module.exports.Compressor = Compressor;
 
 /**     @property/Function open
-
+    Open a connection pool to the database and create a [Client](.Client) instance.
+@argument/.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/.Client client
 */
 function open (server, options, callback) {
     if (arguments.length == 2) {
@@ -35,7 +39,14 @@ function open (server, options, callback) {
 };
 
 /**     @property/Function rawOpen
-
+    Open a connection pool to the database and create native a [MongoClient](mongodb.MongoClient)
+    instance.
+@argument/mongodb.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/.Client client
 */
 function rawOpen (server, options, callback) {
     if (arguments.length == 2) {
@@ -49,7 +60,13 @@ function rawOpen (server, options, callback) {
 };
 
 /**     @property/Function connect
-
+    Open a connection pool to the database and create a [Database](.Database) instance.
+@argument/String dbURL
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/.Database db
 */
 function connect (dbURL, options, callback) {
     if (arguments.length == 2) {
@@ -66,9 +83,15 @@ function connect (dbURL, options, callback) {
 };
 
 /**     @property/Function rawConnect
-
+    Open a connection pool to the database and create a native [Db](mongodb.Db) instance.
+@argument/String dbURL
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/mongodb.Db db
 */
-function rawConnect (url, options, callback) {
+function rawConnect (dbURL, options, callback) {
     if (arguments.length == 2) {
         callback = options;
         options = { w:0 };
@@ -76,11 +99,17 @@ function rawConnect (url, options, callback) {
         if (!Object.hasOwnProperty.call (options, 'w'))
             options.w = 0;
 
-    MongoClient.connect (url, options, callback);
+    MongoClient.connect (dbURL, options, callback);
 };
 
-/**     @property/Function getDatabase
-
+/**     @property/Function database
+    Open a connection pool to the database and create a [Database](.Database) instance.
+@argument/.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/.Database db
 */
 function database (dbName, server, options, callback) {
     if (arguments.length == 3) {
@@ -97,8 +126,14 @@ function database (dbName, server, options, callback) {
     });
 }
 
-/**     @property/Function getRawDatabase
-
+/**     @property/Function rawDatabase
+    Open a connection pool to the database and create a native [Db](mongodb.Db) instance.
+@argument/mongodb.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/mongodb.Db db
 */
 function rawDatabase (dbName, server, options, callback) {
     if (arguments.length == 3) {
@@ -115,7 +150,16 @@ function rawDatabase (dbName, server, options, callback) {
 }
 
 /**     @property/Function collection
-
+    Open a connection pool to the database and select a collection to create a [Collection]
+    (.Collection) instance.
+@argument/String databaseName
+@argument/String collectionName
+@argument/.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/.Collection collection
 */
 function collection (dbName, colName, server, options, callback) {
     if (arguments.length == 4) {
@@ -133,8 +177,17 @@ function collection (dbName, colName, server, options, callback) {
     });
 }
 
-/**     @property/Function getRawCollection
-
+/**     @property/Function rawCollection
+    Open a connection pool to the database and select a collection to create a native [Collection]
+    (mongodb.Collection) instance.
+@argument/String databaseName
+@argument/String collectionName
+@argument/.Server server
+@argument/JSON options
+    @optional
+@callback
+    @argument/Error|undefined err
+    @argument/mongodb.Collection collection
 */
 function rawCollection (dbName, colName, server, options, callback) {
     if (arguments.length == 4) {
@@ -161,5 +214,6 @@ module.exports.collection       = collection;
 module.exports.rawCollection    = rawCollection;
 
 module.exports.Database         = Database;
+module.exports.Db               = Database;
 module.exports.Collection       = Collection;
 module.exports.Server           = mongodb.Server;
