@@ -1,7 +1,6 @@
 
 var async = require ('async');
 var mingydb = require ('../main');
-var fauxmongo = require ('fauxmongo');
 
 function matchLeaves (able, baker, arraysAsSets) {
     if (able === baker) return true;
