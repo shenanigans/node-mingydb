@@ -66,10 +66,11 @@ with new paths, you may shard this collection on the existing index `p_1_l_1`.
  * Callbacks are never optional.
  * The `save` method is not supported.
  * Nothing officially deprecated is supported.
+ * The Bulk API isn't implemented yet (coming soon)
  * The `$where` operator will fail.
  * MapReduce is not supported. Use aggregation.
  * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
- * `geoHaystackSearch` returns a simple Array of records.
+ * `geoHaystackSearch` passes a simple Array of records.
 
 ####Aggregation Notes
  * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form can't stay consistent as you `$$DESCEND`)
@@ -98,7 +99,8 @@ mingydb.collection (
 
 Documentation
 -------------
-Full documentation available [here.](https://shenanigans.github.io/node-mingydb/index.html)
+Full documentation available [here.]
+(https://shenanigans.github.io/node-mingydb/docs/property/mingydb/index.html)
 
 For most purposes, you may refer to the documentation for the
 [standard driver](http://mongodb.github.io/node-mongodb-native/1.4/).
