@@ -1836,7 +1836,7 @@ describe ("Collection", function(){
                     if (err) return done (err);
                     collection.remove ({}, { w:1 }, function (err) {
                         if (err) return done (err);
-                        var batch = collection.initializeOrderedBulkOp();
+                        var batch = collection.initializeOrderedBulkOp ({ w:1 });
 
                         // Add some operations to be executed in order
                         batch.insert({ test:'orderedBatch', able:1 });
@@ -1848,25 +1848,29 @@ describe ("Collection", function(){
                         batch.find({ test:'orderedBatch', able:3 })
                             .remove({ able:3 });
 
-                        // Execute the operations
                         batch.execute (function (err, result) {
                             if (err) return done (err);
-                            collection.find ({}, function (err, cursor) {
-                                if (err) return done (err);
-                                cursor.toArray (function (err, recs) {
-                                    if (err) return done (err);
-                                    if (recs.length != 2)
-                                        return done (new Error (
-                                            'batch produced incorrect number of final results'
-                                        ));
-                                    for (var i in recs)
-                                        if (!recs[i].able || recs[i].able !== recs[i].baker)
-                                            return done (new Error (
-                                                'batch produced an incorrect record'
-                                            ));
-                                    done();
-                                });
-                            });
+
+                            try {
+                                assert.equal(2, result.nInserted);
+                                assert.equal(1, result.nUpserted);
+                                assert.equal(1, result.nMatched);
+                                assert.ok(1 == result.nModified || result.nModified == null);
+                                assert.equal(1, result.nRemoved);
+
+                                var upserts = result.getUpsertedIds();
+                                assert.equal(1, upserts.length);
+                                assert.equal(2, upserts[0].index);
+                                assert.ok(upserts[0]._id != null);
+
+                                var upsert = result.getUpsertedIdAt(0);
+                                assert.equal(2, upsert.index);
+                                assert.ok(upsert._id != null);
+                            } catch (err) {
+                                return done (err);
+                            }
+
+                            done();
                         });
                     });
                 }
@@ -1887,7 +1891,7 @@ describe ("Collection", function(){
                     if (err) return done (err);
                     collection.remove ({}, { w:1 }, function (err) {
                         if (err) return done (err);
-                        var batch = collection.initializeUnorderedBulkOp();
+                        var batch = collection.initializeUnorderedBulkOp ({ w:1 });
 
                         // Add some operations to be executed in order
                         batch.insert({ test:'orderedBatch', able:1 });
@@ -1899,8 +1903,30 @@ describe ("Collection", function(){
                         batch.find({ test:'orderedBatch', able:3 })
                             .remove({ able:3 });
 
-                        // Execute the operations
-                        batch.execute (done);
+                        batch.execute (function (err, result) {
+                            if (err) return done (err);
+
+                            try {
+                                assert.equal(2, result.nInserted);
+                                assert.equal(1, result.nUpserted);
+                                assert.equal(1, result.nMatched);
+                                assert.ok(1 == result.nModified || result.nModified == null);
+                                assert.equal(1, result.nRemoved);
+
+                                var upserts = result.getUpsertedIds();
+                                assert.equal(1, upserts.length);
+                                assert.equal(2, upserts[0].index);
+                                assert.ok(upserts[0]._id != null);
+
+                                var upsert = result.getUpsertedIdAt(0);
+                                assert.equal(2, upsert.index);
+                                assert.ok(upsert._id != null);
+                            } catch (err) {
+                                return done (err);
+                            }
+
+                            done();
+                        });
                     });
                 }
             );
