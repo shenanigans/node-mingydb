@@ -64,7 +64,6 @@ with new paths, you may shard this collection on the existing index `p_1_l_1`.
 
 ####API Differences
  * Callbacks are never optional.
- * The `save` method is not supported.
  * Nothing officially deprecated is supported.
  * The Bulk API isn't implemented yet (coming soon)
  * The `$where` operator will fail.
