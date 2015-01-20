@@ -66,13 +66,13 @@ with new paths, you may shard this collection on the existing index `p_1_l_1`.
  * Callbacks are never optional.
  * Nothing officially deprecated is supported.
  * The Bulk API isn't implemented yet (coming soon)
- * The `$where` operator will fail.
  * MapReduce is not supported. Use aggregation.
+ * The `$where` operator will fail.
  * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
  * `geoHaystackSearch` passes a simple Array of records.
 
 ####Aggregation Notes
- * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form can't stay consistent as you `$$DESCEND`)
+ * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form won't stay consistent as you `$$DESCEND`)
  * Aggregation stages must not transplant compressed subdocuments from one key to another or the entire document will become unrecoverable. Use `setDecompressed` or wait for `setAlias` to be ready.
  * Writing `$out` to another collection requires at least one `$group` or `$project` stage. During the **first** such stage, the path namespace shifts automatically from the first collection to the second.
 
