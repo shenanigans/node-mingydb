@@ -65,7 +65,6 @@ with new paths, you may shard this collection on the existing index `p_1_l_1`.
 ####API Differences
  * Callbacks are never optional.
  * Nothing officially deprecated is supported.
- * The Bulk API isn't implemented yet (coming soon)
  * MapReduce is not supported. Use aggregation.
  * The `$where` operator will fail.
  * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.

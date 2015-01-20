@@ -1827,7 +1827,85 @@ describe ("Collection", function(){
 
     describe ("#initializeOrderedBulkOp", function(){
 
+        it ("performs several batched operations in order", function (done) {
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-bulk',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, collection) {
+                    if (err) return done (err);
+                    collection.remove ({}, { w:1 }, function (err) {
+                        if (err) return done (err);
+                        var batch = collection.initializeOrderedBulkOp();
 
+                        // Add some operations to be executed in order
+                        batch.insert({ test:'orderedBatch', able:1 });
+                        batch.find({ test:'orderedBatch', able:1 })
+                            .updateOne({ $set:{ baker:1 } });
+                        batch.find({ test:'orderedBatch', able:2 })
+                            .upsert().updateOne({ $set:{ baker:2 } });
+                        batch.insert({ test:'orderedBatch', able:3 });
+                        batch.find({ test:'orderedBatch', able:3 })
+                            .remove({ able:3 });
+
+                        // Execute the operations
+                        batch.execute (function (err, result) {
+                            if (err) return done (err);
+                            collection.find ({}, function (err, cursor) {
+                                if (err) return done (err);
+                                cursor.toArray (function (err, recs) {
+                                    if (err) return done (err);
+                                    if (recs.length != 2)
+                                        return done (new Error (
+                                            'batch produced incorrect number of final results'
+                                        ));
+                                    for (var i in recs)
+                                        if (!recs[i].able || recs[i].able !== recs[i].baker)
+                                            return done (new Error (
+                                                'batch produced an incorrect record'
+                                            ));
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                }
+            );
+        });
+
+    });
+
+    describe ("#initializeUnorderedBulkOp", function(){
+
+        it ("performs several batched operations in order", function (done) {
+
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-bulk',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, collection) {
+                    if (err) return done (err);
+                    collection.remove ({}, { w:1 }, function (err) {
+                        if (err) return done (err);
+                        var batch = collection.initializeUnorderedBulkOp();
+
+                        // Add some operations to be executed in order
+                        batch.insert({ test:'orderedBatch', able:1 });
+                        batch.find({ test:'orderedBatch', able:1 })
+                            .updateOne({ $set:{ baker:1 } });
+                        batch.find({ test:'orderedBatch', able:2 })
+                            .upsert().updateOne({ $set:{ baker:2 } });
+                        batch.insert({ test:'orderedBatch', able:3 });
+                        batch.find({ test:'orderedBatch', able:3 })
+                            .remove({ able:3 });
+
+                        // Execute the operations
+                        batch.execute (done);
+                    });
+                }
+            );
+
+        });
 
     });
 
@@ -1836,4 +1914,5 @@ describe ("Collection", function(){
 
 
     });
+
 });
