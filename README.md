@@ -96,15 +96,6 @@ mingydb.collection (
 ```
 
 
-Documentation
--------------
-Full documentation available [here.]
-(https://shenanigans.github.io/node-mingydb/docs/property/mingydb/index.html)
-
-For most purposes, you may refer to the documentation for the
-[standard driver](http://mongodb.github.io/node-mongodb-native/1.4/).
-
-
 Development
 -----------
 `mingydb` is developed and maintained by Kevin "Schmidty" Smith under the MIT license. If you want to
