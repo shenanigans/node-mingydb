@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>.mingydb.Database documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../index.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../highlight.css" />
+    <script type="text/javascript" src="../../../../index.js"></script>
+</head>
+<body class="class" id="component_309">
+    <div id="outer">
+        <div id="header">
+            
+            
+            
+            
+            
+            <a class="ctype" href="../../../../index.html">class</a>
+            <span></span>
+            <span class="breadcrumbs">
+                <span class="delimiter">.</span><a href="../../index.html" class="breadcrumb module">mingydb</a><span class="delimiter">.</span><a href="index.html" class="breadcrumb class">Database</a>
+            </span>
+        </div>
+<div id="TOC">
+    <!--<h3>Table of Contents</h3>-->
+        <div class="section">
+            <h4 class="header"><a href="#statics">Static Properties</a></h4>
+                <a href="#component_159">Database</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#functions">Static Functions</a></h4>
+                <a href="#component_207">collection</a><br />
+                <a href="#component_174">getDatabase</a><br />
+                <a href="#component_231">getRawCollection</a><br />
+                <a href="#component_189">getRawDatabase</a><br />
+        </div>
+        <div class="section">
+            <h4 class="header"><a href="#methods">Instance Methods</a></h4>
+                <a href="#component_258">admin</a><br />
+                <a href="#component_240">close</a><br />
+                <a href="#component_288">collection</a><br />
+                <a href="#component_273">collectionNames</a><br />
+                <a href="#component_300">collections</a><br />
+                <a href="#component_255">db</a><br />
+                <a href="#component_261">listCollections</a><br />
+                <a href="#component_249">open</a><br />
+        </div>
+</div>
+        <div id="content">
+            <!-- basic document info -->
+            <div id="details">
+                        <div class="markdown"><p>A wrapped native driver Db instance.</p>
+</div>
+                <div class="clear"></div>
+                <!-- constructor function -->
+                <h1>Constructor</h1>
+                <div id="constructor" class="section constructor">
+                    <h2 class="signature">
+                        Database (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="title" href="#component_303">
+            dbName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mongodb.Db</a>
+            
+        </span>
+        <a class="title" href="#component_306">
+            mongoloid
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+                        ) {
+                    </h2>
+                    <div class="markdown"></div>
+                        <h3>Arguments</h3>
+                        <div class="section arguments">
+                                <div class="child argument" id="component_303">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="index.html#component_303">
+            dbName
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                                <div class="child argument" id="component_306">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mongodb.Db</a>
+            
+        </span>
+        <a class="name" href="index.html#component_306">
+            mongoloid
+        </a>
+    
+</span>
+                                    <div class="info">
+                                        <span class="markdown"></span>
+                                    <div class="tail"></div></div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<div class="children">
+        <!-- static properties -->
+        <h1 id="statics" class="header">Static Properties</h1>
+        <div class="section properties">
+<div id="component_159" class="child class">
+    <span class="signature">
+        <span></span>
+        
+            <span class="ctype">class</span>
+        
+        <a class="title" href="index.html#component_159">Database</a>
+    </span>
+    <div class="info">
+<span class="markdown"></span>
+    </div>
+</div>
+        </div>
+        <!-- static functions -->
+        <h1 id="functions" class="header">Static Functions</h1>
+        <div class="section properties">
+<div id="component_207" class="child function">
+    <span class="signature">
+        <a href="property/collection/index.html" class="title">
+            collection
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_192">
+            host
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_195">
+            port
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_198">
+            dbname
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_201">
+            collectionName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_204">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return a wrapped MongoDB <a href="javascript:return false;"><code>collection</code></a> with inline <a href="../../property/Compressor/index.html"><code>compression</code></a> support.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_192">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/collection/index.html#component_192">
+            host
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_195">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="property/collection/index.html#component_195">
+            port
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_198">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/collection/index.html#component_198">
+            dbname
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_201">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/collection/index.html#component_201">
+            collectionName
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_204">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/collection/index.html#component_204">
+            callback
+        </a>
+    <span>
+        (
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_174" class="child function">
+    <span class="signature">
+        <a href="property/getDatabase/index.html" class="title">
+            getDatabase
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_162">
+            host
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_165">
+            port
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_168">
+            dbname
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_171">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return a wrapped database <a href="index.html"><code>instance</code></a> instance with inline <a href="../../property/Compressor/index.html"><code>compression</code></a> support.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_162">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getDatabase/index.html#component_162">
+            host
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_165">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="property/getDatabase/index.html#component_165">
+            port
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_168">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getDatabase/index.html#component_168">
+            dbname
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_171">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/getDatabase/index.html#component_171">
+            callback
+        </a>
+    <span>
+        (
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_231" class="child function">
+    <span class="signature">
+        <a href="property/getRawCollection/index.html" class="title">
+            getRawCollection
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_210">
+            host
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_213">
+            port
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_216">
+            dbname
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_219">
+            collectionName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_228">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return a raw <a href="javascript:return false;"><code>mongodb.Collection</code></a> instance with no special effects.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_210">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getRawCollection/index.html#component_210">
+            host
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_213">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="property/getRawCollection/index.html#component_213">
+            port
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_216">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getRawCollection/index.html#component_216">
+            dbname
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_219">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getRawCollection/index.html#component_219">
+            collectionName
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_228">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/getRawCollection/argument/unnamed_17/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_222">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">mingydb.Database.Collection</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_225">
+            collection
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_222">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/getRawCollection/argument/unnamed_17/index.html#component_222">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_225">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">mingydb.Database.Collection</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="property/getRawCollection/argument/unnamed_17/index.html#component_225">
+                                                            collection
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_189" class="child function">
+    <span class="signature">
+        <a href="property/getRawDatabase/index.html" class="title">
+            getRawDatabase
+        </a>
+        (
+            <span>
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_177">
+            host
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    <span class="optionBracket">[</span>
+        <a class="title" href="#component_180">
+            port
+        </a>
+    <span class="optionBracket">]</span>
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_183">
+            dbname
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_186">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Return a wrapped database <a href="index.html"><code>instance</code></a> instance with inline <a href="../../property/Compressor/index.html"><code>compression</code></a> support.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_177">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getRawDatabase/index.html#component_177">
+            host
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_180">
+<span class="signature">
+        <div class="flag optional">optional</div>
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Number</a>
+            
+        </span>
+        <a class="name" href="property/getRawDatabase/index.html#component_180">
+            port
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument " id="component_183">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="property/getRawDatabase/index.html#component_183">
+            dbname
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_186">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="property/getRawDatabase/index.html#component_186">
+            callback
+        </a>
+    <span>
+        (
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+        <!-- instance methods -->
+        <h1 id="methods" class="header">Instance Methods</h1>
+        <div class="section members">
+<div id="component_258" class="child function">
+    <span class="signature">
+        <a href="index.html#component_258" class="title">
+            admin
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Retrieve the admin collection.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_240" class="child function">
+    <span class="signature">
+        <a href="member/close/index.html" class="title">
+            close
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_237">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Close all active database connections.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_237">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/close/argument/unnamed_9/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_234">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_234">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/close/argument/unnamed_9/index.html#component_234">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_288" class="child function">
+    <span class="signature">
+        <a href="member/collection/index.html" class="title">
+            collection
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_276">
+            collectionName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            
+<div class="argument">
+    
+        <a class="title" href="#component_285">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Get a <a href="../../property/Collection/index.html"><code>Collection instance</code></a>.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_276">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/collection/index.html#component_276">
+            collectionName
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+                    <div class="child argument callback" id="component_285">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/collection/argument/unnamed_12/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_279">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="../../property/Collection/index.html">mingydb.Collection</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_282">
+            collections
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_279">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/collection/argument/unnamed_12/index.html#component_279">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_282">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/collection/argument/unnamed_12/index.html#component_282">
+                                                            collections
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_273" class="child function">
+    <span class="signature">
+        <a href="member/collectionNames/index.html" class="title">
+            collectionNames
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_270">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Retrieve an Array of the names of every collection on this database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_270">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/collectionNames/argument/unnamed_11/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_264">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="javascript:return false;">String</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_267">
+            collectionNames
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_264">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/collectionNames/argument/unnamed_11/index.html#component_264">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_267">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/collectionNames/argument/unnamed_11/index.html#component_267">
+                                                            collectionNames
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_300" class="child function">
+    <span class="signature">
+        <a href="member/collections/index.html" class="title">
+            collections
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_297">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Get an Array of <a href="../../property/Collection/index.html"><code>Collection instances</code></a> for all collections on this database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_297">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/collections/argument/unnamed_13/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_291">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Array</a>
+            
+                <span class="punctuation">[</span>
+                <span>
+                    <a class="valtype" href="../../property/Collection/index.html">mingydb.Collection</a>
+                    <span class="valsep punctuation">,</span>
+                </span>
+                <span class="punctuation">]</span>
+        </span>
+        <a class="title" href="#component_294">
+            collections
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_291">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/collections/argument/unnamed_13/index.html#component_291">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                            <div class="child argument" id="component_294">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Array</a>
+                                                        </span>
+                                                        <a class="title" href="member/collections/argument/unnamed_13/index.html#component_294">
+                                                            collections
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_255" class="child function">
+    <span class="signature">
+        <a href="member/db/index.html" class="title">
+            db
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_252">
+            dbName
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Obtain a Database instance for another database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument " id="component_252">
+<span class="signature">
+    
+        <span>
+            <span class="valsep punctuation punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">String</a>
+            
+        </span>
+        <a class="name" href="member/db/index.html#component_252">
+            dbName
+        </a>
+    
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_261" class="child function">
+    <span class="signature">
+        <a href="index.html#component_261" class="title">
+            listCollections
+        </a>
+        (
+            <span></span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Obtain a cursor listing collection information on this database.</p>
+</span>
+        <div class="tail" /></div>
+    </div>
+</div>
+<div id="component_249" class="child function">
+    <span class="signature">
+        <a href="member/open/index.html" class="title">
+            open
+        </a>
+        (
+            <span>
+<div class="argument">
+    
+        <a class="title" href="#component_246">
+            callback
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+            </span>
+        ) {
+    </span>
+    <div class="info">
+        <span class="markdown"><p>Open a pool of connections to the database.</p>
+</span>
+            <h4>Arguments</h4>
+            <div class="section arguments">
+                    <div class="child argument callback" id="component_246">
+<span class="signature">
+    
+        <span></span>
+        <a class="name" href="member/open/argument/unnamed_10/index.html">
+            callback
+        </a>
+    <span>
+        (
+<div class="argument">
+    
+        <span>
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">Error</a>
+            
+        
+            <span class="valsep punctuation">|</span>
+            <a class="valtype" href="javascript:return false;">undefined</a>
+            
+        </span>
+        <a class="title" href="#component_243">
+            err
+        </a>
+    
+    <span class="comma">,</span>
+</div>
+        ) {
+    </span>
+</span>
+                        <div class="info">
+                            <span class="markdown"></span>
+                                    <h4>Arguments</h4>
+                                    <div class="section arguments">
+                                            <div class="child argument" id="component_243">
+                                                <span class="signature">
+                                                        <span>
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">Error</a>
+                                                        
+                                                            <span class="valsep">|</span>
+                                                            <a class="valtype" href="javascript:return false;">undefined</a>
+                                                        </span>
+                                                        <a class="title" href="member/open/argument/unnamed_10/index.html#component_243">
+                                                            err
+                                                        </a>
+                                                </span>
+                                                <div class="info">
+                                                    <span class="markdown"></span>
+                                                </div>
+                                            </div>
+                                    </div>
+                        </div>
+                    </div>
+            </div>
+        <div class="tail" /></div>
+    </div>
+</div>
+        </div>
+</div>
+        </div>
+    </div>
+    <div id="footer">
+        This document was generated with
+        <a href="https://github.com/shenanigans/node-doczar">doczar</a>
+        at <span class="time">12:47pm</span> on <span class="date">Tuesday, January 20, 2015</span>
+    </div>
+</body>
+</html>
