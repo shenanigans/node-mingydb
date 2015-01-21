@@ -60,19 +60,21 @@ mongodb.collection (
 ```
 
 A collection called `_mins` will be created in each database. If you plan to bombard your cluster
-with new paths, you may shard this collection on the existing index `p_1_l_1`.
+with new paths, you may shard this collection on the existing index `longPaths`.
 
 ####API Differences
  * Callbacks are never optional.
- * The `save` method is not supported.
  * Nothing officially deprecated is supported.
- * The `$where` operator will fail.
  * MapReduce is not supported. Use aggregation.
+ * The `$where` operator will fail.
+
+####Extras
  * You may pass a GeoJSON point to `geoNear` instead of a legacy pair.
- * `geoHaystackSearch` returns a simple Array of records.
+ * `geoHaystackSearch` passes a simple Array of records.
+ * Get collections directly from the module with `mingydb.collection` and `mingydb.rawCollection`.
 
 ####Aggregation Notes
- * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form can't stay consistent as you `$$DESCEND`)
+ * Cannot perform a recursive `$redact` on a compressed collection (the test key's minified form won't stay consistent as you `$$DESCEND`)
  * Aggregation stages must not transplant compressed subdocuments from one key to another or the entire document will become unrecoverable. Use `setDecompressed` or wait for `setAlias` to be ready.
  * Writing `$out` to another collection requires at least one `$group` or `$project` stage. During the **first** such stage, the path namespace shifts automatically from the first collection to the second.
 
@@ -115,7 +117,7 @@ LICENSE
 -------
 The MIT License (MIT)
 
-Copyright (c) 2014 Kevin "Schmidty" Smith
+Copyright (c) 2015 Kevin "Schmidty" Smith
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

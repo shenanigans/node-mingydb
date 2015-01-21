@@ -1,7 +1,7 @@
 {
   "name": "mingydb",
   "main": "main.js",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Drop-in automagic compressing driver for MongoDB",
   "keywords": [
     "mongodb",
@@ -11,7 +11,7 @@
     "compression",
     "compressing",
     "compressed",
-    "compressor"
+    "compressor",
     "minification",
     "minified",
     "minifying",
@@ -25,7 +25,9 @@
   "dependencies": {
     "async": "^0.9.0",
     "mongodb": "^1.4.19",
-    "url": "^0.10.1"
+    "url": "^0.10.1",
+    "cachew": "^0.1.0",
+    "infosex": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "^2.1.0"

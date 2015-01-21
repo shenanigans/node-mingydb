@@ -1,7 +1,6 @@
 
 var async = require ('async');
 var mingydb = require ('../main');
-var fauxmongo = require ('fauxmongo');
 
 function matchLeaves (able, baker, arraysAsSets) {
     if (able === baker) return true;
@@ -844,7 +843,7 @@ describe ("Aggregation", function(){
                             { $project:{
                                 _id:                '$hotel',
                                 test:               '$test',
-                                'fox.george.hotel': '$fox.george.hotel',
+                                'fox.george.hotel': true,
                                 bar:                '$george.hotel'
                             } },
                             { $out:'test-mingydb-aggregation' }
@@ -883,7 +882,7 @@ describe ("Aggregation", function(){
                 );
             });
 
-            it ("outputs to another compressed collection with $project (dots)", function (done) {
+            it ("outputs to another compressed collection with $project (layers)", function (done) {
                 var testDoc;
                 collection.insert (
                     testDoc = {
@@ -907,7 +906,7 @@ describe ("Aggregation", function(){
                             { $project:{
                                 _id:    '$hotel',
                                 test:   '$test',
-                                fox:    { george:{ hotel:'$fox.george.hotel' } },
+                                fox:    { george:{ hotel:true } },
                                 bar:    '$george.hotel'
                             } },
                             { $out:'test-mingydb-aggregation' }

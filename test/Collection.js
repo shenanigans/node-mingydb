@@ -1827,7 +1827,111 @@ describe ("Collection", function(){
 
     describe ("#initializeOrderedBulkOp", function(){
 
+        it ("performs several batched operations in order", function (done) {
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-bulk',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, collection) {
+                    if (err) return done (err);
+                    collection.remove ({}, { w:1 }, function (err) {
+                        if (err) return done (err);
+                        var batch = collection.initializeOrderedBulkOp ({ w:1 });
 
+                        // Add some operations to be executed in order
+                        batch.insert({ test:'orderedBatch', able:1 });
+                        batch.find({ test:'orderedBatch', able:1 })
+                            .updateOne({ $set:{ baker:1 } });
+                        batch.find({ test:'orderedBatch', able:2 })
+                            .upsert().updateOne({ $set:{ baker:2 } });
+                        batch.insert({ test:'orderedBatch', able:3 });
+                        batch.find({ test:'orderedBatch', able:3 })
+                            .remove({ able:3 });
+
+                        batch.execute (function (err, result) {
+                            if (err) return done (err);
+
+                            try {
+                                assert.equal(2, result.nInserted);
+                                assert.equal(1, result.nUpserted);
+                                assert.equal(1, result.nMatched);
+                                assert.ok(1 == result.nModified || result.nModified == null);
+                                assert.equal(1, result.nRemoved);
+
+                                var upserts = result.getUpsertedIds();
+                                assert.equal(1, upserts.length);
+                                assert.equal(2, upserts[0].index);
+                                assert.ok(upserts[0]._id != null);
+
+                                var upsert = result.getUpsertedIdAt(0);
+                                assert.equal(2, upsert.index);
+                                assert.ok(upsert._id != null);
+                            } catch (err) {
+                                return done (err);
+                            }
+
+                            done();
+                        });
+                    });
+                }
+            );
+        });
+
+    });
+
+    describe ("#initializeUnorderedBulkOp", function(){
+
+        it ("performs several batched operations in order", function (done) {
+
+            mingydb.collection (
+                'test-mingydb',
+                'test-mingydb-bulk',
+                new mingydb.Server ('127.0.0.1', 27017),
+                function (err, collection) {
+                    if (err) return done (err);
+                    collection.remove ({}, { w:1 }, function (err) {
+                        if (err) return done (err);
+                        var batch = collection.initializeUnorderedBulkOp ({ w:1 });
+
+                        // Add some operations to be executed in order
+                        batch.insert({ test:'orderedBatch', able:1 });
+                        batch.find({ test:'orderedBatch', able:1 })
+                            .updateOne({ $set:{ baker:1 } });
+                        batch.find({ test:'orderedBatch', able:2 })
+                            .upsert().updateOne({ $set:{ baker:2 } });
+                        batch.insert({ test:'orderedBatch', able:3 });
+                        batch.find({ test:'orderedBatch', able:3 })
+                            .remove({ able:3 });
+
+                        batch.execute (function (err, result) {
+                            if (err) return done (err);
+
+                            try {
+                                assert.equal(2, result.nInserted);
+                                assert.equal(1, result.nUpserted);
+                                assert.equal(1, result.nMatched);
+                                assert.ok(1 == result.nModified || result.nModified == null);
+                                assert.equal(1, result.nRemoved);
+
+                                var upserts = result.getUpsertedIds();
+                                assert.equal(1, upserts.length);
+                                assert.equal(2, upserts[0].index);
+                                assert.ok(upserts[0]._id != null);
+
+                                var upsert = result.getUpsertedIdAt(0);
+                                assert.equal(2, upsert.index);
+                                assert.ok(upsert._id != null);
+                            } catch (err) {
+                                return done (err);
+                            }
+
+                            done();
+                        });
+                    });
+                }
+            );
+
+        });
 
     });
 
@@ -1836,4 +1940,5 @@ describe ("Collection", function(){
 
 
     });
+
 });
