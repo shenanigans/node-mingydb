@@ -15,6 +15,14 @@ $ npm install mingydb
 ```
 
 
+Deployment
+----------
+There is absolutely no need to define schema or configuration options in advance. You may bombard
+your collection with novel keys to minify from any number of physical servers without fear of
+collisions. Aside from a handful of [niche caveats](#api-differences) `mingydb` is a fully
+stress-free and transparent drop-in library.
+
+
 Using MingyDB
 -------------
 `mingydb` is almost identical to the
